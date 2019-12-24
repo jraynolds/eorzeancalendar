@@ -21,7 +21,7 @@ export default {
 
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;   
 }
 </style>

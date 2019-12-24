@@ -18,18 +18,47 @@ export default {
         return {
             calendarPlugins: [ timeGridPlugin ],
             eventRender: function(info) {
-                if (info.event.extendedProps.description) {
+                let extendedProps = info.event.extendedProps;
+
+                let split = info.event.title.split(" ");
+                let camelCased = split[0].toLowerCase();
+                for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
+                $(info.el).addClass("event-" + camelCased)
+                $(info.el).click(function() {
+                    $('html, body').animate({
+                        scrollTop: $("#" + camelCased).offset().top
+                    }, 1000)
+                });
+
+                let hasLogo = false;
+                if (extendedProps.logo) {
+                    hasLogo = true;
+                    let img = $(document.createElement("div"));
+                    img.addClass("fc-logo");
+                    img.addClass("grow");
+                    let backgroundImage = 'url(' + require('@/assets/images/events/logos/' + extendedProps.logo) + ')';
+                    let backgroundColor = $(info.el).css("background-color");
+                    img.css(
+                        {backgroundImage: backgroundImage, backgroundColor: backgroundColor,
+                        boxShadow: "0 0 8px 8px " + backgroundColor + " inset"}
+                    );
+                    $(info.el).css("background-color")
+                    $(info.el).find(".fc-content").append(img);
+                }
+
+                if (extendedProps.description) {
                     let desc = $(document.createElement("span"));
                     desc.addClass("fc-desc");
-                    let text = info.event.extendedProps.description;
-                    if (info.event.extendedProps.truncatedDesc) text = info.event.extendedProps.truncatedDesc;
+                    if (!hasLogo) desc.addClass("grow");
+                    let text = extendedProps.description;
+                    if (extendedProps.truncatedDesc) text = extendedProps.truncatedDesc;
                     desc.text(text);
                     $(info.el).find(".fc-content").append(desc);
                 }
 
-                if (info.event.extendedProps.location) {
+                if (extendedProps.location) {
                     let location = $(document.createElement("span"));
-                    let locationData = info.event.extendedProps.location;
+                    let locationData = extendedProps.location;
                     location.addClass("fc-loc");
                     let housing = locationData.housing.slice(0, 1);
                     if (locationData.housing.includes(" ")) {
@@ -39,7 +68,7 @@ export default {
                     location.text(`${locationData.world} ${housing}, ${locationData.ward}/${locationData.plot}`);
                     $(info.el).find(".fc-content").append(location);
                 }
-            }
+            },
         }
     },
     computed: {
@@ -56,23 +85,34 @@ export default {
 @import '~@fullcalendar/timegrid/main.css';
 
 .fc-content {
-    padding: 2px;
+    padding: 4px;
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.fc-logo {
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 8px 8px white inset;
 }
 
 .fc-desc {
     font-style: italic;
     font-size: smaller;
     width: 100%;
-    flex-grow: 1;
 
     display: flex;
+    flex-grow: .1;
     align-items: center;
 }
 
 .fc-loc {
     font-size: small;
+}
+
+.grow {
+    display: flex;
+    flex-grow: 1;
 }
 </style>

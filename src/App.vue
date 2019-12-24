@@ -38,6 +38,7 @@ export default {
               daysOfWeek: [3,4,5,6,0],
               groupId: "Lightwarden",
               header: "lightwarden.png",
+              logo: "lightwarden.png",
               stringTime: "7-11 PST, Weds-Sun",
               description: "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
               categories: ["club", "nsfw"],
@@ -52,6 +53,31 @@ export default {
           ],
           backgroundColor: "paleVioletRed",
           borderColor: "darkRed"
+        },
+        {
+          name: "art",
+          events: [
+            {
+              title: "A Stage Reborn",
+              start: "2019-12-24T14:00:00-08:00",
+              end: "2019-12-24T19:00:00-08:00",
+              groupId: "StageReborn",
+              header: "stageReborn.png",
+              stringTime: "December 23rd from 2-7 PST",
+              description: "A Stage Reborn is Eorzea's premier theatre troupe. All plays are performed in-game with the tools Square Enix provides to heighten the experience and draw the viewer in.",
+              categories: ["art"],
+              location: {
+                datacenter: "Crystal",
+                world: "Malboro",
+                housing: "Lavender Beds",
+                ward: 13,
+                plot: 36
+              }
+            }
+          ],
+          backgroundColor: "paleGoldenRod",
+          borderColor: "white",
+          textColor: "black"
         }
       ]
     }
@@ -83,9 +109,9 @@ body {
   text-align: center;
   color: #2c3e50;
 
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 body, #app, #content {
@@ -93,11 +119,13 @@ body, #app, #content {
 }
 
 #content {
+  max-width: 1280px;
   padding: 10px;
+   
+  background-color: $maingroundColor;
 }
 
 #calendarContainer {
-  background-color: $maingroundColor;
   height: 750px;
 }
 </style>
