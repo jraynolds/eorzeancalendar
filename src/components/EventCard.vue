@@ -1,11 +1,11 @@
 <template>
-    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPast(event)">
+    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPassed(event)" :style="{ backgroundColor: event.categories[0].backgroundColor }">
         <div class="eventCard__header">
             <p class="eventCard__time">{{ event.stringTime }}</p>
             <p class="eventCard__categories">
-                <span class="eventCard__category" :key="category" v-for="(category, index) in event.categories">
+                <span class="eventCard__category" :key="index" v-for="(category, index) in event.categories">
                     <span class="eventCard__catSplit" v-if="index != 0">, </span>
-                    <a href="">{{ categoryToString(category) }}</a>
+                    <a href="">{{ category.title }}</a>
                 </span>
             </p>
         </div>
@@ -27,18 +27,18 @@ export default {
         event
     },
     methods: {
-        categoryToString(cat) {
-            let spaced = cat.replace("_", " ");
-            let camelCased = this.toCamelCase(spaced);
-            return camelCased.charAt(0).toUpperCase() + camelCased.slice(1);
-        },
+        // categoryToString(cat) {
+        //     let spaced = cat.replace("_", " ");
+        //     let camelCased = this.toCamelCase(spaced);
+        //     return camelCased.charAt(0).toUpperCase() + camelCased.slice(1);
+        // },
         toCamelCase(str) {
             let split = str.split(" ");
             let camelCased = split[0].toLowerCase();
             for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
             return camelCased;
         },
-        hasPast(event) {
+        hasPassed(event) {
             let currentTime = new Date();
             if (event.endTime) { // This is a repeating event.
                 if (!event.endRecur) { // This event doesn't end.
@@ -50,8 +50,6 @@ export default {
             }
         }
     },
-    computed: {
-    }
 }
 </script>
 
