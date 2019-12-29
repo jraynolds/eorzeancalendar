@@ -5,6 +5,7 @@
 <script>
 import JQuery from 'jquery'
 let $ = JQuery
+import Dotdotdot from 'dotdotdot-js'
 
 import FullCalendar from '@fullcalendar/vue'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -23,6 +24,7 @@ export default {
                 let split = info.event.title.split(" ");
                 let camelCased = split[0].toLowerCase();
                 for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
+                
                 $(info.el).addClass("event-" + camelCased)
                 $(info.el).click(function() {
                     $('html, body').animate({
@@ -54,6 +56,7 @@ export default {
                     if (extendedProps.truncatedDesc) text = extendedProps.truncatedDesc;
                     desc.text(text);
                     $(info.el).find(".fc-content").append(desc);
+                    new Dotdotdot(desc[0], {watch: true, height: "watch"});
                 }
 
                 if (extendedProps.location) {
@@ -75,6 +78,14 @@ export default {
         getCurrentHour() {
             return new Date().getHours() + ":00:00";
         }
+    },
+    methods: {
+        toCamelCase(string) {
+            let split = string.split(" ");
+            let camel = split[0].toLowerCase();
+            for (let i=1; i<split.length; i++) camel += split[i][0].toUpperCase() + split[i].slice(1);
+            return camel;
+        }
     }
 }
 </script>
@@ -89,6 +100,7 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
+    box-sizing: border-box;
 }
 
 .fc-logo {
@@ -101,9 +113,9 @@ export default {
     font-style: italic;
     font-size: smaller;
     width: 100%;
+    overflow: hidden;
 
     display: flex;
-    flex-grow: .1;
     align-items: center;
 }
 

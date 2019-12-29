@@ -20,6 +20,8 @@ export default {
     methods: {
         removeHover() {
             this.categoriesIsHovered = false;
+            // eslint-disable-next-line no-console
+            // console.log(this.categories);
             for (let component of this.categories) {
                 component.hoveredThisInstance = false;
             }

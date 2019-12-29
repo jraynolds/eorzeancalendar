@@ -30,11 +30,12 @@ export default {
 }
 
 .category-button {
-  height: 100%;
-  width: 30px;
-  border-radius: 5px;
-  transition: 1s all;
-  box-sizing: border-box;
+	height: 100%;
+	width: 30px;
+	border-radius: 5px;
+	transition: 1s all;
+	box-sizing: border-box;
+	cursor: pointer;
 }
 
 .category-title {

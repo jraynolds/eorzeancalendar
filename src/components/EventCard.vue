@@ -1,11 +1,11 @@
 <template>
-    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPassed(event)" :style="{ backgroundColor: event.categories[0].backgroundColor }">
+    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPassed(event)" :style="{ backgroundColor: getActiveCategory.backgroundColor }">
         <div class="eventCard__header">
             <p class="eventCard__time">{{ event.stringTime }}</p>
             <p class="eventCard__categories">
-                <span class="eventCard__category" :key="index" v-for="(category, index) in event.categories">
+                <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">
                     <span class="eventCard__catSplit" v-if="index != 0">, </span>
-                    <a href="">{{ category.title }}</a>
+                    <a href="">{{ category }}</a>
                 </span>
             </p>
         </div>
@@ -23,8 +23,14 @@
 
 <script>
 export default {
-    props: {
-        event
+    props: [ "event", "categories" ],
+    computed: {
+        getActiveCategory() {
+            for (let category of this.event.categories) {
+                if (this.categories[category].isShowing) return this.categories[category];
+            }
+            return null;
+        }
     },
     methods: {
         // categoryToString(cat) {
@@ -33,12 +39,16 @@ export default {
         //     return camelCased.charAt(0).toUpperCase() + camelCased.slice(1);
         // },
         toCamelCase(str) {
-            let split = str.split(" ");
-            let camelCased = split[0].toLowerCase();
-            for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
-            return camelCased;
+            // let split = str.split(" ");
+            // let camelCased = split[0].toLowerCase();
+            // for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
+            // return camelCased;
+            return str;
         },
         hasPassed(event) {
+            // eslint-disable-next-line no-console
+            console.log(event);
+
             let currentTime = new Date();
             if (event.endTime) { // This is a repeating event.
                 if (!event.endRecur) { // This event doesn't end.

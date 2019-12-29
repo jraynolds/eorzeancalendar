@@ -13,6 +13,7 @@
     "@fullcalendar/timegrid": "^4.3.0",
     "@fullcalendar/vue": "^4.3.1",
     "core-js": "^3.4.3",
+    "dotdotdot-js": "^4.0.10",
     "ftellipsis": "^0.2.3",
     "jquery": "^3.4.1",
     "sass-loader": "^8.0.0",

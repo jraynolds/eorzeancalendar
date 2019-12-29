@@ -1,6 +1,6 @@
 <template>
     <div id="eventCards">
-        <EventCard :event="event" :key="event.id" v-for="event in events"/>
+        <EventCard :event="event" :categories="categories" :key="event.id" v-for="event of getUniqueEvents"/>
     </div>
 </template>
 
@@ -8,9 +8,20 @@
 import EventCard from "./EventCard.vue"
 
 export default {
-    props: [ "events" ],
+    props: [ "events", "categories" ],
     components: {
         EventCard
+    },
+    computed: {
+        getUniqueEvents() {
+            let uniqueEvents = [];
+            for (let event of this.events) {
+                if (!uniqueEvents.includes(event)) {
+                    uniqueEvents.push(event);
+                }
+            }
+            return uniqueEvents;
+        }
     }
 }
 </script>

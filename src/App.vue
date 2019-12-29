@@ -3,10 +3,10 @@
     <Head/>
     <div id="content">
       <div id="calendarContainer">
-        <FullCalendar :eventSources="categories"/>
+        <FullCalendar :eventSources="getEventSources"/>
       </div>
       <Categories :categories="getActiveCategories"/>
-      <EventCards :events="getAllEvents"/>
+      <EventCards :events="getAllEvents" :categories="categories"/>
     </div>
     <Foot/>
   </div>
@@ -29,105 +29,121 @@ export default {
     Foot
   },
   data() {
-    return {
-      categories: {
-        club: {
-          title: "Club",
-          backgroundColor: "mistyrose",
-          borderColor: "darkred",
-          textColor: "black",
-          isShowing: true,
-          isHovering: false,
-          hoveredThisInstance: false,
-          events: [
-            {
-              title: "Lightwarden Club",
-              startTime: "19:00:00-08:00",
-              endTime: "23:00:00-08:00",
-              daysOfWeek: [3,4,5,6,0],
-              groupId: "Lightwarden",
-              header: "lightwarden.png",
-              logo: "lightwarden.png",
-              stringTime: "7-11 PST, Weds-Sun",
-              description: "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
-              location: {
-                datacenter: "Crystal",
-                world: "Malboro",
-                housing: "Lavender Beds",
-                ward: 13,
-                plot: 36
-              }
-            }
-          ],
-        },
-        art: {
-          title: "Art",
-          backgroundColor: "palegoldenrod",
-          borderColor: "white",
-          textColor: "black",
-          isShowing: true,
-          isHovering: false,
-          hoveredThisInstance: false,
-          events: [
-            {
-              title: "A Stage Reborn",
-              start: "2019-12-24T14:00:00-08:00",
-              end: "2019-12-24T19:00:00-08:00",
-              groupId: "StageReborn",
-              header: "stageReborn.png",
-              stringTime: "December 23rd from 2-7 PST",
-              description: "A Stage Reborn is Eorzea's premier theatre troupe. All plays are performed in-game with the tools Square Enix provides to heighten the experience and draw the viewer in.",
-              location: {
-                datacenter: "Crystal",
-                world: "Malboro",
-                housing: "Lavender Beds",
-                ward: 13,
-                plot: 36
-              }
-            }
-          ]
-        },
-        nsfw: {
-          title: "NSFW",
-          backgroundColor: "palevioletred",
-          borderColor: "darkred",
-          textColor: "white",
-          isShowing: false,
-          isHovering: false,
-          hoveredThisInstance: false,
-          events: [
-            {
-              title: "Lightwarden Club",
-              startTime: "19:00:00-08:00",
-              endTime: "23:00:00-08:00",
-              daysOfWeek: [3,4,5,6,0],
-              groupId: "Lightwarden",
-              header: "lightwarden.png",
-              logo: "lightwarden.png",
-              stringTime: "7-11 PST, Weds-Sun",
-              description: "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
-              location: {
-                datacenter: "Crystal",
-                world: "Malboro",
-                housing: "Lavender Beds",
-                ward: 13,
-                plot: 36
-              }
-            }
-          ],
-        },
+    let categories = {
+      club: {
+        title: "Club",
+        backgroundColor: "mistyrose",
+        borderColor: "darkred",
+        textColor: "black",
+        isShowing: true,
+        isHovering: false,
+        hoveredThisInstance: false,
+        events: []
+      },
+      art: {
+        title: "Art",
+        backgroundColor: "palegoldenrod",
+        borderColor: "white",
+        textColor: "black",
+        isShowing: true,
+        isHovering: false,
+        hoveredThisInstance: false,
+        events: []
+      },
+      nsfw: {
+        title: "NSFW",
+        backgroundColor: "palevioletred",
+        borderColor: "darkred",
+        textColor: "white",
+        isShowing: false,
+        isHovering: false,
+        hoveredThisInstance: false,
+        events: []
       }
+    }
+    return {
+      events: [
+        {
+          title: "Lightwarden Club",
+          startTime: "19:00:00-08:00",
+          endTime: "23:00:00-08:00",
+          daysOfWeek: [3,4,5,6,0],
+          groupId: "Lightwarden",
+          header: "lightwarden.png",
+          logo: "lightwarden.png",
+          stringTime: "7-11 PST, Weds-Sun",
+          description: "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
+          location: {
+            datacenter: "Crystal",
+            world: "Malboro",
+            housing: "Lavender Beds",
+            ward: 13,
+            plot: 36
+          },
+          categories: ["club", "nsfw"]
+        },
+        {
+          title: "A Stage Reborn",
+          start: "2019-12-24T14:00:00-08:00",
+          end: "2019-12-24T19:00:00-08:00",
+          groupId: "StageReborn",
+          header: "stageReborn.png",
+          stringTime: "December 23rd from 2-7 PST",
+          description: "A Stage Reborn is Eorzea's premier theatre troupe. All plays are performed in-game with the tools Square Enix provides to heighten the experience and draw the viewer in.",
+          location: {
+            datacenter: "Crystal",
+            world: "Malboro",
+            housing: "Lavender Beds",
+            ward: 13,
+            plot: 36
+          },
+          categories: ["art"]
+        },
+      ],
+      categories: categories
     }
   },
   computed: {
+    getEventSources() {
+      let sources = [];
+
+      let uniqueEvents = [];
+      for (let key in this.categories) {
+        let category = this.categories[key];
+        if (!category.isShowing) continue;
+
+        let source = {};
+        source.title = category.title;
+        source.backgroundColor = category.backgroundColor;
+        source.borderColor = category.borderColor;
+        source.textColor = category.textColor;
+        source.events = [];
+
+        for (let event of this.events) {
+          if (event.categories[0] != key) continue;
+          if (uniqueEvents.includes(event)) continue;
+          else {
+            source.events.push(event);
+            uniqueEvents.push(event);
+          }
+        }
+
+        sources.push(source);
+      }
+      
+      // eslint-disable-next-line no-console
+      console.log(sources);
+
+      return sources;
+    },
     getAllEvents() {
       let events = [];
       // eslint-disable-next-line no-console
-      console.log(this.categories)
+      // console.log(this.categories)
       for (let category in this.categories) {
         category = this.categories[category];
         // eslint-disable-next-line no-console
-        console.log(category);
+        // console.log(category);
         for (let event of category.events) {
           if (category.isShowing) events = events.concat(event)
         }
@@ -137,26 +153,37 @@ export default {
       return events;
     },
     getActiveCategories() {
-      let categories = [];
-      for (let category of categories) {
-        if (category.isShowing && category.events.length > 0) {
-          categories.push(category);
+      let actives = [];
+      for (let key in this.categories) {
+        let category = this.categories[key];
+        if (category.events.length > 0) {
+          actives.push(category);
         }
       }
-      return categories;
+      return actives;
     }
   },
   methods: {
     eventIsShowing(event) {
       // eslint-disable-next-line no-console
-      console.log(event);
+      // console.log(event);
       for (let category in event.categories) {
         // eslint-disable-next-line no-console
-        console.log(event.categories[category]);
+        // console.log(event.categories[category]);
         if (event.categories[category].isShowing) return true;
       }
       return false;
+    },
+    addEventsToCategories: function() {
+      for (let event of this.events) {
+        for (let category of event.categories) {
+          this.categories[category].events.push(event);
+        }
+      }
     }
+  },
+  beforeMount() {
+    this.addEventsToCategories();
   }
 }
 </script>
