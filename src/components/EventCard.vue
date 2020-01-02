@@ -1,6 +1,7 @@
 <template>
     <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPassed(event)" :style="{ backgroundColor: getActiveCategory.backgroundColor }">
         <div class="eventCard__header">
+            <Timer :event="event"/>
             <p class="eventCard__time">{{ event.stringTime }}</p>
             <p class="eventCard__categories">
                 <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">
@@ -22,8 +23,13 @@
 </template>
 
 <script>
+import Timer from './Timer.vue'
+
 export default {
-    props: [ "event", "categories" ],
+    props: [ "event", "categories", "notificationsEnabled" ],
+    components: {
+        Timer
+    },
     computed: {
         getActiveCategory() {
             for (let category of this.event.categories) {
@@ -33,22 +39,13 @@ export default {
         }
     },
     methods: {
-        // categoryToString(cat) {
-        //     let spaced = cat.replace("_", " ");
-        //     let camelCased = this.toCamelCase(spaced);
-        //     return camelCased.charAt(0).toUpperCase() + camelCased.slice(1);
-        // },
         toCamelCase(str) {
-            // let split = str.split(" ");
-            // let camelCased = split[0].toLowerCase();
-            // for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
-            // return camelCased;
-            return str;
+            let split = str.split(" ");
+            let camelCased = split[0].toLowerCase();
+            for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
+            return camelCased;
         },
         hasPassed(event) {
-            // eslint-disable-next-line no-console
-            console.log(event);
-
             let currentTime = new Date();
             if (event.endTime) { // This is a repeating event.
                 if (!event.endRecur) { // This event doesn't end.

@@ -68,7 +68,7 @@ export default {
           startTime: "19:00:00-08:00",
           endTime: "23:00:00-08:00",
           daysOfWeek: [3,4,5,6,0],
-          groupId: "Lightwarden",
+          groupId: "LightWarden",
           header: "lightwarden.png",
           logo: "lightwarden.png",
           stringTime: "7-11 PST, Weds-Sun",
@@ -80,7 +80,9 @@ export default {
             ward: 13,
             plot: 36
           },
-          categories: ["club", "nsfw"]
+          categories: ["club", "nsfw"],
+          isAlarmed: false,
+          hasRungToday: false
         },
         {
           title: "A Stage Reborn",
@@ -97,10 +99,13 @@ export default {
             ward: 13,
             plot: 36
           },
-          categories: ["art"]
+          categories: ["art"],
+          isAlarmed: false,
+          hasRungToday: false
         },
       ],
-      categories: categories
+      categories: categories,
+      ticker: null
     }
   },
   computed: {
@@ -132,7 +137,7 @@ export default {
       }
       
       // eslint-disable-next-line no-console
-      console.log(sources);
+      // console.log(sources);
 
       return sources;
     },
@@ -149,7 +154,7 @@ export default {
         }
       }
       // eslint-disable-next-line no-console
-      console.log(events);
+      // console.log(events);
       return events;
     },
     getActiveCategories() {
@@ -165,25 +170,58 @@ export default {
   },
   methods: {
     eventIsShowing(event) {
-      // eslint-disable-next-line no-console
-      // console.log(event);
       for (let category in event.categories) {
-        // eslint-disable-next-line no-console
-        // console.log(event.categories[category]);
         if (event.categories[category].isShowing) return true;
       }
       return false;
     },
-    addEventsToCategories: function() {
+    addEventsToCategories() {
       for (let event of this.events) {
         for (let category of event.categories) {
           this.categories[category].events.push(event);
         }
       }
+    },
+    timeTicker() {
+      let vm = this;
+
+      this.ticker = setInterval(function() {
+        if (Notification.permission == "granted")
+          // eslint-disable-next-line no-console
+          // console.log(vm.events);
+          for (let event of vm.events) {
+            // eslint-disable-next-line no-console
+            // console.log(event.isAlarmed);
+            if (event.isAlarmed && !event.hasRungToday && vm.isInMargin(event)) {
+              alert("Hi!");
+              new Notification("Hi!");
+            }
+          }
+      }, 5000);
+    },
+    isInMargin(event) {
+      // let margin = 30000;
+      let now = Date.now();
+      // eslint-disable-next-line no-console
+      // console.log(now);
+      return (now - this.parseTime(event));
+    },
+    parseTime(event) {
+      // eslint-disable-next-line no-console
+      console.log(event);
+      // let seconds = 0;
+      if (event.startTime) {
+        // eslint-disable-next-line no-console
+        console.log(Date.parse(event.startTime));
+      } else if (event.start) {
+        // eslint-disable-next-line no-console
+        console.log(Date.parse(event.start));
+      }
     }
   },
   beforeMount() {
     this.addEventsToCategories();
+    this.timeTicker();
   }
 }
 </script>

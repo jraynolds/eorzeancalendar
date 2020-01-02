@@ -31,7 +31,8 @@ export default {
                         scrollTop: $("#" + camelCased).offset().top
                     }, 1000)
                 });
-
+                
+                // Add a logo
                 let hasLogo = false;
                 if (extendedProps.logo) {
                     hasLogo = true;
@@ -48,6 +49,7 @@ export default {
                     $(info.el).find(".fc-content").append(img);
                 }
 
+                // Add a description
                 if (extendedProps.description) {
                     let desc = $(document.createElement("span"));
                     desc.addClass("fc-desc");
@@ -59,6 +61,7 @@ export default {
                     new Dotdotdot(desc[0], {watch: true, height: "watch"});
                 }
 
+                // Add a location
                 if (extendedProps.location) {
                     let location = $(document.createElement("span"));
                     let locationData = extendedProps.location;
@@ -94,6 +97,7 @@ export default {
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
+@import 'https://static.fontawesome.com/css/fontawesome-app.css';
 
 .fc-content {
     padding: 4px;
