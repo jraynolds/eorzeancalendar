@@ -1,6 +1,6 @@
 <template>
     <div id="eventCards">
-        <EventCard :event="event" @alarmToggle="$emit('alarmToggle')" :categories="categories" :key="event.id" v-for="event of this.events"/>
+        <EventCard :event="event" @alarmToggle="$emit('alarmToggle')" @showingToggle="$emit('showingToggle')" :categories="categories" :key="event.id" v-for="event of this.events"/>
     </div>
 </template>
 

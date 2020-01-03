@@ -6,7 +6,7 @@
         <FullCalendar :eventSources="getEventSources"/>
       </div>
       <Categories :categories="getActiveCategories" @showingToggle="setCookies"/>
-      <EventCards :events="getCurrentEvents" :categories="categories" @alarmToggle="setCookies"/>
+      <EventCards :events="getCurrentEvents" :categories="categories" @alarmToggle="setCookies" @showingToggle="setCookies"/>
     </div>
     <Foot/>
   </div>
@@ -75,9 +75,6 @@ export default {
           } 
         }
       }
-
-      // eslint-disable-next-line no-console
-      console.log(sources);
 
       return sources;
     },
@@ -171,7 +168,7 @@ export default {
       let alarmedEvents = this.$cookies.get("alarmedEvents");
       for (let alarmed in alarmedEvents) {
         for (let event of this.events) {
-          if (event.title == alarmed.title) event.isAlarmed = alarmedEvents[alarmed];
+          if (event.title == alarmed) event.isAlarmed = alarmedEvents[alarmed];
         }
       }
     }

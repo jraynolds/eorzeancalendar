@@ -1,5 +1,5 @@
 <template>
-    <img :src="require('@/assets/images/bell.png')" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="{hovered: isHovered}" @click="timerClick" :style="[isClicked ? {opacity: 1} : {}]"/>
+    <img :src="require('@/assets/images/bell.png')" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="{hovered: isHovered}" @click="timerClick" :style="[event.isAlarmed ? {opacity: 1} : {}]"/>
 </template>
 
 <script>
@@ -7,24 +7,19 @@ export default {
     props: [ "event" ],
     methods: {
         timerClick() {
-            if (this.isClicked) {
-                this.isClicked = false;
+            if (this.event.isAlarmed) {
                 this.event.isAlarmed = false;
             } else {
                 if(!("Notification" in window)) {
                     alert("This browser does not support notifications.");
-                    this.isClicked = false;
                     return;
                 }
-                // eslint-disable-next-line no-console
-                console.log(Notification.permission);
                 if (Notification.permission != "granted") {
                     Notification.requestPermission().then(function() {
                         if (Notification.permission != "granted") return;
                     });
                 }
                 this.event.isAlarmed = true;
-                this.isClicked = true;
             }
 
             this.$emit('alarmToggle')
@@ -32,8 +27,7 @@ export default {
     },
     data() {
         return {
-            isHovered: false,
-            isClicked: false
+            isHovered: false
         }
     }
 }

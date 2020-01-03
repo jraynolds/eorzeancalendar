@@ -7,7 +7,7 @@
                 <p class="eventCard__categories">
                     <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">
                         <span class="eventCard__catSplit" v-if="index != 0">, </span>
-                        <a href="">{{ category }}</a>
+                        <a @click="toggleAllOthers(category)">{{ category }}</a>
                     </span>
                 </p>
             </div>
@@ -52,6 +52,13 @@ export default {
             let camelCased = split[0].toLowerCase();
             for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
             return camelCased;
+        },
+        toggleAllOthers(catKey) {
+            for (let key in this.categories) {
+                this.categories[key].isShowing = false;
+            }
+            this.categories[catKey].isShowing = true;
+            this.$emit('showingToggle');
         }
     },
 }
@@ -69,6 +76,8 @@ $cardFontColor: #2c3e50;
     display: flex;
     flex-direction: column;
     padding: 10px;
+
+    // transition: 1s background-color;
 
     &__header {
         display: flex;
