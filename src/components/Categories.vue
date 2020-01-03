@@ -1,6 +1,6 @@
 <template>
     <div id="categories" @mouseenter="categoriesIsHovered = true" @mouseleave="removeHover">
-        <Category :category="category" :key="category.id" v-for="category in categories" :categoriesIsHovered="categoriesIsHovered"/>
+        <Category :category="category" :key="category.id" v-for="category in categories" :categoriesIsHovered="categoriesIsHovered" @showingToggle="$emit('showingToggle')"/>
     </div>    
 </template>
 

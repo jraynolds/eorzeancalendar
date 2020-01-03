@@ -1,6 +1,6 @@
 <template>
 	<div class="category-container" :class="{ hovered: category.hoveredThisInstance }" >
-		<div class="category-button" :style="[category.isShowing ? {border: '2px solid ' + category.backgroundColor, backgroundColor: category.backgroundColor} : {border: '2px solid ' + category.backgroundColor}]" @click="category.isShowing = !category.isShowing" @mouseenter="category.isHovered = true; category.hoveredThisInstance = true" @mouseleave="category.isHovered = false"/>
+		<div class="category-button" :style="[category.isShowing ? {border: '2px solid ' + category.backgroundColor, backgroundColor: category.backgroundColor} : {border: '2px solid ' + category.backgroundColor}]" @click="category.isShowing = !category.isShowing; $emit('showingToggle')" @mouseenter="category.isHovered = true; category.hoveredThisInstance = true" @mouseleave="category.isHovered = false"/>
 		<span class="category-title" :style="{ color: category.backgroundColor }">{{ category.title }}</span>
 	</div>
 </template>

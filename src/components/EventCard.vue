@@ -2,7 +2,7 @@
     <transition name="fade">
         <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" :style="{ backgroundColor: getActiveCategory.backgroundColor }" v-if="isShowing">
             <div class="eventCard__header">
-                <Timer :event="event"/>
+                <Timer :event="event" @alarmToggle="$emit('alarmToggle')"/>
                 <p class="eventCard__time">{{ event.stringTime }}</p>
                 <p class="eventCard__categories">
                     <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">

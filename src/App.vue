@@ -5,14 +5,18 @@
       <div id="calendarContainer">
         <FullCalendar :eventSources="getEventSources"/>
       </div>
-      <Categories :categories="getActiveCategories"/>
-      <EventCards :events="getCurrentEvents" :categories="categories"/>
+      <Categories :categories="getActiveCategories" @showingToggle="setCookies"/>
+      <EventCards :events="getCurrentEvents" :categories="categories" @alarmToggle="setCookies"/>
     </div>
     <Foot/>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies);
+
 import FullCalendar from '@/components/FullCalendar.vue'
 import Head from '@/components/Head.vue'
 import Categories from '@/components/Categories.vue'
@@ -139,10 +143,39 @@ export default {
       if (Notification.permission == "granted") new Notification(alarmString);
 
       event.hasRungToday = true;
+    },
+    setCookies() {
+      // eslint-disable-next-line no-console
+      console.log("setting cookies!");
+      // eslint-disable-next-line no-console
+      console.log(this.events);
+
+      // Set shown categories
+      let shownCategories = {};
+      for (let category in this.categories) shownCategories[category] = this.categories[category].isShowing;
+      this.$cookies.set("categoriesShowing", shownCategories);
+      
+      // Set alarmed events
+      let alarmedEvents = {};
+      for (let event of this.events.filter(e => e.isAlarmed)) alarmedEvents[event.title] = true;
+      this.$cookies.set("alarmedEvents", alarmedEvents);
+    },
+    readCookies() {
+      let categoriesShowing = this.$cookies.get("categoriesShowing");
+      for (let category in categoriesShowing) this.categories[category].isShowing = categoriesShowing[category];
+
+      let alarmedEvents = this.$cookies.get("alarmedEvents");
+      for (let alarmed in alarmedEvents) {
+        for (let event of this.events) {
+          if (event.title == alarmed.title) event.isAlarmed = alarmedEvents[alarmed];
+        }
+      }
     }
   },
   beforeMount() {
     this.addEventsToCategories();
+    if (this.$cookies.keys().length == 0) this.setCookies();
+    else this.readCookies();
     this.timeTicker();
   },
   mounted() {

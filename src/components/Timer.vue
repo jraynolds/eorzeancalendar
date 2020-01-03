@@ -26,6 +26,8 @@ export default {
                 this.event.isAlarmed = true;
                 this.isClicked = true;
             }
+
+            this.$emit('alarmToggle')
         }
     },
     data() {
