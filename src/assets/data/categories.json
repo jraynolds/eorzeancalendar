@@ -1,0 +1,32 @@
+{
+    "club": {
+        "title": "Club",
+        "backgroundColor": "mistyrose",
+        "borderColor": "darkred",
+        "textColor": "black",
+        "isShowing": true,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "art": {
+        "title": "Art",
+        "backgroundColor": "palegoldenrod",
+        "borderColor": "white",
+        "textColor": "black",
+        "isShowing": true,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "nsfw": {
+        "title": "NSFW",
+        "backgroundColor": "palevioletred",
+        "borderColor": "darkred",
+        "textColor": "white",
+        "isShowing": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    }
+}

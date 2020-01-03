@@ -19,6 +19,9 @@ import Categories from '@/components/Categories.vue'
 import EventCards from '@/components/EventCards.vue'
 import Foot from '@/components/Foot.vue'
 
+import categories from '@/assets/data/categories.json'
+import events from '@/assets/data/events.json'
+
 export default {
   name: 'app',
   components: {
@@ -29,81 +32,9 @@ export default {
     Foot
   },
   data() {
-    let categories = {
-      club: {
-        title: "Club",
-        backgroundColor: "mistyrose",
-        borderColor: "darkred",
-        textColor: "black",
-        isShowing: true,
-        isHovering: false,
-        hoveredThisInstance: false,
-        events: []
-      },
-      art: {
-        title: "Art",
-        backgroundColor: "palegoldenrod",
-        borderColor: "white",
-        textColor: "black",
-        isShowing: true,
-        isHovering: false,
-        hoveredThisInstance: false,
-        events: []
-      },
-      nsfw: {
-        title: "NSFW",
-        backgroundColor: "palevioletred",
-        borderColor: "darkred",
-        textColor: "white",
-        isShowing: false,
-        isHovering: false,
-        hoveredThisInstance: false,
-        events: []
-      }
-    }
+    categories
     return {
-      events: [
-        {
-          title: "Lightwarden Club",
-          startTime: "19:00:00-08:00",
-          endTime: "23:00:00-08:00",
-          daysOfWeek: [3,4,5,6,0],
-          groupId: "LightWarden",
-          header: "lightwarden.png",
-          logo: "lightwarden.png",
-          stringTime: "7-11 PST, Weds-Sun",
-          description: "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
-          location: {
-            datacenter: "Crystal",
-            world: "Malboro",
-            housing: "Lavender Beds",
-            ward: 13,
-            plot: 36
-          },
-          categories: ["club", "nsfw"],
-          isAlarmed: false,
-          hasRungToday: false
-        },
-        {
-          title: "A Stage Reborn",
-          start: "2020-01-03T14:00:00-08:00",
-          end: "2020-01-03T19:00:00-08:00",
-          groupId: "StageReborn",
-          header: "stageReborn.png",
-          stringTime: "2-7 PST, Jan 2nd",
-          description: "A Stage Reborn is Eorzea's premier theatre troupe. All plays are performed in-game with the tools Square Enix provides to heighten the experience and draw the viewer in.",
-          location: {
-            datacenter: "Crystal",
-            world: "Malboro",
-            housing: "Lavender Beds",
-            ward: 13,
-            plot: 36
-          },
-          categories: ["art"],
-          isAlarmed: false,
-          hasRungToday: false
-        },
-      ],
+      events,
       categories: categories,
       ticker: null
     }
@@ -255,10 +186,12 @@ body, #app, #content {
   height: 750px;
 }
 
+// FADE animation class
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>
