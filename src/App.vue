@@ -152,12 +152,6 @@ export default {
     },
   },
   methods: {
-    eventIsShowing(event) {
-      for (let category in event.categories) {
-        if (event.categories[category].isShowing) return true;
-      }
-      return false;
-    },
     addEventsToCategories() {
       for (let event of this.events) {
         for (let category of event.categories) {
@@ -259,5 +253,12 @@ body, #app, #content {
 
 #calendarContainer {
   height: 750px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -1,25 +1,27 @@
 <template>
-    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" :style="{ backgroundColor: getActiveCategory.backgroundColor }">
-        <div class="eventCard__header">
-            <Timer :event="event"/>
-            <p class="eventCard__time">{{ event.stringTime }}</p>
-            <p class="eventCard__categories">
-                <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">
-                    <span class="eventCard__catSplit" v-if="index != 0">, </span>
-                    <a href="">{{ category }}</a>
-                </span>
+    <transition name="fade">
+        <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" :style="{ backgroundColor: getActiveCategory.backgroundColor }" v-if="isShowing">
+            <div class="eventCard__header">
+                <Timer :event="event"/>
+                <p class="eventCard__time">{{ event.stringTime }}</p>
+                <p class="eventCard__categories">
+                    <span class="eventCard__category" :key="index" v-for="(category, index) of event.categories">
+                        <span class="eventCard__catSplit" v-if="index != 0">, </span>
+                        <a href="">{{ category }}</a>
+                    </span>
+                </p>
+            </div>
+            <div class="eventCard__image" :style="{backgroundImage: 'url(' + require('@/assets/images/events/headers/' + event.header) + ')'}"></div>
+            <h2 class="eventCard__title">{{ event.title }}</h2>
+            <p class="eventCard__desc">{{ event.description }}</p>
+            <p class="eventCard__loc">
+                <span class="eventCard__world">{{ event.location.world }}: </span>
+                <span class="eventCard__housing">{{ event.location.housing }}, </span>
+                <span class="eventCard__ward">ward {{ event.location.ward }} </span>
+                <span class="eventCard__plot">plot {{ event.location.plot }}</span>
             </p>
         </div>
-        <div class="eventCard__image" :style="{backgroundImage: 'url(' + require('@/assets/images/events/headers/' + event.header) + ')'}"></div>
-        <h2 class="eventCard__title">{{ event.title }}</h2>
-        <p class="eventCard__desc">{{ event.description }}</p>
-        <p class="eventCard__loc">
-            <span class="eventCard__world">{{ event.location.world }}: </span>
-            <span class="eventCard__housing">{{ event.location.housing }}, </span>
-            <span class="eventCard__ward">ward {{ event.location.ward }} </span>
-            <span class="eventCard__plot">plot {{ event.location.plot }}</span>
-        </p>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -36,6 +38,12 @@ export default {
                 if (this.categories[category].isShowing) return this.categories[category];
             }
             return null;
+        },
+        isShowing() {
+            for (let category of this.event.categories) {
+                if (this.categories[category].isShowing) return true;
+            }
+            return false;
         }
     },
     methods: {
