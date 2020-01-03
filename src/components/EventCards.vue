@@ -1,6 +1,6 @@
 <template>
     <div id="eventCards">
-        <EventCard :event="event" :categories="categories" :key="event.id" v-for="event of getUniqueEvents"/>
+        <EventCard :event="event" :categories="categories" :key="event.id" v-for="event of this.events"/>
     </div>
 </template>
 
@@ -11,17 +11,6 @@ export default {
     props: [ "events", "categories" ],
     components: {
         EventCard
-    },
-    computed: {
-        getUniqueEvents() {
-            let uniqueEvents = [];
-            for (let event of this.events) {
-                if (!uniqueEvents.includes(event)) {
-                    uniqueEvents.push(event);
-                }
-            }
-            return uniqueEvents;
-        }
     }
 }
 </script>

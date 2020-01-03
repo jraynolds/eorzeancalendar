@@ -6,7 +6,7 @@
         <FullCalendar :eventSources="getEventSources"/>
       </div>
       <Categories :categories="getActiveCategories"/>
-      <EventCards :events="getAllEvents" :categories="categories"/>
+      <EventCards :events="getCurrentEvents" :categories="categories"/>
     </div>
     <Foot/>
   </div>
@@ -86,11 +86,11 @@ export default {
         },
         {
           title: "A Stage Reborn",
-          start: "2019-12-24T14:00:00-08:00",
-          end: "2019-12-24T19:00:00-08:00",
+          start: "2020-01-03T14:00:00-08:00",
+          end: "2020-01-03T19:00:00-08:00",
           groupId: "StageReborn",
           header: "stageReborn.png",
-          stringTime: "December 23rd from 2-7 PST",
+          stringTime: "2-7 PST, Jan 2nd",
           description: "A Stage Reborn is Eorzea's premier theatre troupe. All plays are performed in-game with the tools Square Enix provides to heighten the experience and draw the viewer in.",
           location: {
             datacenter: "Crystal",
@@ -132,30 +132,10 @@ export default {
             uniqueEvents.push(event);
           }
         }
-
         sources.push(source);
       }
-      
-      // eslint-disable-next-line no-console
-      // console.log(sources);
 
       return sources;
-    },
-    getAllEvents() {
-      let events = [];
-      // eslint-disable-next-line no-console
-      // console.log(this.categories)
-      for (let category in this.categories) {
-        category = this.categories[category];
-        // eslint-disable-next-line no-console
-        // console.log(category);
-        for (let event of category.events) {
-          if (category.isShowing) events = events.concat(event)
-        }
-      }
-      // eslint-disable-next-line no-console
-      // console.log(events);
-      return events;
     },
     getActiveCategories() {
       let actives = [];
@@ -166,7 +146,10 @@ export default {
         }
       }
       return actives;
-    }
+    },
+    getCurrentEvents() {
+      return this.events.filter(event => !this.isFinished(event));
+    },
   },
   methods: {
     eventIsShowing(event) {
@@ -182,46 +165,63 @@ export default {
         }
       }
     },
+    isFinished(event) {
+        let currentTime = new Date();
+        if (event.endTime) { // This is a repeating event.
+            if (!event.endRecur) { // This event doesn't end.
+                return false;
+            }
+            return Date.parse(event.endRecur) < currentTime.getTime()
+        } else { // This is a one-time event.
+            return Date.parse(event.end) < currentTime.getTime()
+        }
+    },
     timeTicker() {
       let vm = this;
 
       this.ticker = setInterval(function() {
-        if (Notification.permission == "granted")
-          // eslint-disable-next-line no-console
-          // console.log(vm.events);
-          for (let event of vm.events) {
-            // eslint-disable-next-line no-console
-            // console.log(event.isAlarmed);
-            if (event.isAlarmed && !event.hasRungToday && vm.isInMargin(event)) {
-              alert("Hi!");
-              new Notification("Hi!");
-            }
+        for (let event of vm.events.filter(event => event.isAlarmed)) {
+          if (!vm.isFinished(event) && !event.hasRungToday && vm.justStarted(event)) {
+            vm.alarm(event);
           }
+        }
       }, 5000);
     },
-    isInMargin(event) {
-      // let margin = 30000;
+    justStarted(event) {
+      let margin = 10000; // How late are we willing to be on time?
       let now = Date.now();
-      // eslint-disable-next-line no-console
-      // console.log(now);
-      return (now - this.parseTime(event));
-    },
-    parseTime(event) {
-      // eslint-disable-next-line no-console
-      console.log(event);
-      // let seconds = 0;
-      if (event.startTime) {
-        // eslint-disable-next-line no-console
-        console.log(Date.parse(event.startTime));
-      } else if (event.start) {
-        // eslint-disable-next-line no-console
-        console.log(Date.parse(event.start));
+      let eventStart = null;
+      if (event.startTime) { // This is a repeated event.
+        eventStart = this.parseTime(event.startTime);
+      } else if (event.start) { // This is a one-time event.
+        eventStart = this.parseTime(event.start);
       }
+      return (now - eventStart >= 0 && now - eventStart < margin);
+    },
+    parseTime(timeStr) {
+      if (!timeStr.includes("T")) { // This is a repeated event of form "HH:MM:SS-HH:MM"
+        let today = new Date();
+        let timeArr = timeStr.split("-")[0].split(":");
+        return today.setHours(timeArr[0], timeArr[1], timeArr[2]);
+      } else { // This is a solitary event of form "YYYY-MM-DDTHH:MM:SS-HH:MM"
+        return new Date(timeStr);
+      }
+    },
+    alarm(event) {
+      let alarmString = `${event.title} is beginning!`;
+      
+      alert(alarmString);
+      if (Notification.permission == "granted") new Notification(alarmString);
+
+      event.hasRungToday = true;
     }
   },
   beforeMount() {
     this.addEventsToCategories();
     this.timeTicker();
+  },
+  mounted() {
+    // this.alarm(this.events[0]);
   }
 }
 </script>

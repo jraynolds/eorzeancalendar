@@ -1,5 +1,5 @@
 <template>
-    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" v-if="!hasPassed(event)" :style="{ backgroundColor: getActiveCategory.backgroundColor }">
+    <div class="eventCard" :class="event.categories" :id="toCamelCase(event.title)" :style="{ backgroundColor: getActiveCategory.backgroundColor }">
         <div class="eventCard__header">
             <Timer :event="event"/>
             <p class="eventCard__time">{{ event.stringTime }}</p>
@@ -44,17 +44,6 @@ export default {
             let camelCased = split[0].toLowerCase();
             for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
             return camelCased;
-        },
-        hasPassed(event) {
-            let currentTime = new Date();
-            if (event.endTime) { // This is a repeating event.
-                if (!event.endRecur) { // This event doesn't end.
-                    return false;
-                }
-                return Date.parse(event.endRecur) < currentTime.getTime()
-            } else { // This is a one-time event.
-                return Date.parse(event.end) < currentTime.getTime()
-            }
         }
     },
 }
