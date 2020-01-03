@@ -47,7 +47,6 @@ export default {
     getEventSources() {
       let sources = [];
 
-      let uniqueEvents = [];
       for (let key in this.categories) {
         let category = this.categories[key];
         if (!category.isShowing) continue;
@@ -58,17 +57,27 @@ export default {
         source.borderColor = category.borderColor;
         source.textColor = category.textColor;
         source.events = [];
-
-        for (let event of this.events) {
-          if (event.categories[0] != key) continue;
-          if (uniqueEvents.includes(event)) continue;
-          else {
-            source.events.push(event);
-            uniqueEvents.push(event);
-          }
-        }
         sources.push(source);
       }
+
+      for (let event of this.events) {
+        for (let key of event.categories) {
+          let category = this.categories[key];
+          if (!category.isShowing) continue;
+          else {
+            for (let source of sources) {
+              if (source.title.toLowerCase() == category.title.toLowerCase()) {
+                source.events.push(event);
+                break;
+              }
+            }
+            break;
+          } 
+        }
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(sources);
 
       return sources;
     },
@@ -145,11 +154,6 @@ export default {
       event.hasRungToday = true;
     },
     setCookies() {
-      // eslint-disable-next-line no-console
-      console.log("setting cookies!");
-      // eslint-disable-next-line no-console
-      console.log(this.events);
-
       // Set shown categories
       let shownCategories = {};
       for (let category in this.categories) shownCategories[category] = this.categories[category].isShowing;
