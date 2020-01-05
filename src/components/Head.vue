@@ -1,7 +1,8 @@
 <template>
-    <div id="head">
-        <img src="@/assets/images/calendar.svg"/>
-        <span id="pageTitle">Eorzean Calendar</span>
+    <div id="head" class="whiteShadow">
+        <span id="titleStart">Eorzean</span>
+            <img src="@/assets/images/calendar.svg"/>
+        <span id="titleEnd">Calendar</span>
     </div>
 </template>
 
@@ -23,12 +24,9 @@ export default {
     font-family: 'coolvetica', Helvetica, Arial, sans-serif;
     height: 80px;
     width: 100%;
-    margin-bottom: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-
-    background-color: slategray;
 }
 
 img {
@@ -37,7 +35,7 @@ img {
     margin-right: 20px;
 }
 
-#pageTitle {
+#titleStart, #titleEnd {
     font-size: 50pt;
 }
 </style>

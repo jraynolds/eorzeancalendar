@@ -5,6 +5,7 @@
         "borderColor": "darkred",
         "textColor": "black",
         "isShowing": true,
+        "isHidden": false,
         "isHovering": false,
         "hoveredThisInstance": false,
         "events": []
@@ -15,6 +16,7 @@
         "borderColor": "white",
         "textColor": "black",
         "isShowing": true,
+        "isHidden": false,
         "isHovering": false,
         "hoveredThisInstance": false,
         "events": []
@@ -25,6 +27,7 @@
         "borderColor": "darkred",
         "textColor": "white",
         "isShowing": false,
+        "isHidden": true,
         "isHovering": false,
         "hoveredThisInstance": false,
         "events": []

@@ -1,32 +1,74 @@
 <template>
-	<div class="category-container" :class="{ hovered: category.hoveredThisInstance }" >
-		<div class="category-button" :style="[category.isShowing ? {border: '2px solid ' + category.backgroundColor, backgroundColor: category.backgroundColor} : {border: '2px solid ' + category.backgroundColor}]" @click="category.isShowing = !category.isShowing; $emit('showingToggle')" @mouseenter="category.isHovered = true; category.hoveredThisInstance = true" @mouseleave="category.isHovered = false"/>
-		<span class="category-title" :style="{ color: category.backgroundColor }">{{ category.title }}</span>
+	<div class="category-outline" :class="{ hovered: category.hoveredThisInstance }">
+		<div class="category-container" :class="{ hovered: category.hoveredThisInstance }">
+			<div class="category-button" :style="computedStyle" @click="categoryClick" @mouseenter="category.isHovered = true; category.hoveredThisInstance = true" @mouseleave="category.isHovered = false">
+				<transition name="fade">
+					<span class="category-x" :style="{ textShadow: `1px 1px 0 black` }" v-if="category.isHidden">X</span>
+				</transition>
+			</div>
+		</div>
+		<span class="category-title" :style="{ color: category.backgroundColor, textShadow: `1px 1px 0 black` }">{{ category.title }}</span>
 	</div>
 </template>
 
 <script>
 export default {
 	props: [ "category", "categoriesHovered" ],
-	data() {
-		return {
+	computed: {
+		computedStyle() {
+			if (this.category.isShowing) {
+				return {
+					color: this.category.backgroundColor,
+					border: '2px solid ' + this.category.backgroundColor, 
+					backgroundColor: this.category.backgroundColor
+				}
+			} else if (this.category.isHidden) {
+				return {
+					color: this.category.backgroundColor,
+					border: '2px solid ' + this.category.backgroundColor
+				}
+			} else {
+				return {
+					color: this.category.backgroundColor,
+					border: '2px solid ' + this.category.backgroundColor
+				}
+			}
+		}
+	},
+	methods: {
+		categoryClick() {
+			if (this.category.isShowing) {
+				this.category.isShowing = false;
+			} else if (this.category.isHidden) {
+				this.category.isShowing = true;
+				this.category.isHidden = false;
+			} else {
+				this.category.isHidden = true;
+			}
+
+			this.$emit('showingToggle');
 		}
 	}
 }
 </script>
 
 <style lang="scss" scoped>
-.category-container {
+.category-outline {
+	height: 100%;
+	max-width: 30px;
 	display: grid;
 	grid-template-columns: 30px 1fr;
+}
+
+.category-container, .category-outline {
 	height: 100%;
 	max-width: 30px;
 
 	transition: .5s all;
 }
 
-.category-container.hovered {
-	max-width: 100px;
+.category-container.hovered, .category-outline.hovered {
+	max-width: 200px;
 }
 
 .category-button {
@@ -36,6 +78,11 @@ export default {
 	transition: 1s all;
 	box-sizing: border-box;
 	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.4em;
 }
 
 .category-title {
@@ -43,6 +90,7 @@ export default {
 	width: auto;
 	display: flex;
 	align-items: center;
+	font-size: 1.5em;
 }
 
 .category-title {

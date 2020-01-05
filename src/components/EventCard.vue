@@ -40,10 +40,12 @@ export default {
             return null;
         },
         isShowing() {
+            let isShowing = false;
             for (let category of this.event.categories) {
-                if (this.categories[category].isShowing) return true;
+                if (this.categories[category].isHidden) return false;
+                if (this.categories[category].isShowing) isShowing = true;
             }
-            return false;
+            return isShowing;
         }
     },
     methods: {
@@ -96,6 +98,10 @@ $cardFontColor: #2c3e50;
     &__categories {
         text-align: right;
         font-style: italic;
+
+        a {
+          cursor: pointer;  
+        }
     }
 
     &__image {

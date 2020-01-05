@@ -2,10 +2,12 @@
   <div id="app">
     <Head/>
     <div id="content">
-      <div id="calendarContainer">
-        <FullCalendar :eventSources="getEventSources"/>
+      <div id="main" class="whiteShadow">
+        <div id="calendarContainer">
+          <FullCalendar :eventSources="getEventSources"/>
+        </div>
+        <Categories :categories="getActiveCategories" @showingToggle="setCookies"/>
       </div>
-      <Categories :categories="getActiveCategories" @showingToggle="setCookies"/>
       <EventCards :events="getCurrentEvents" :categories="categories" @alarmToggle="setCookies" @showingToggle="setCookies"/>
     </div>
     <Foot/>
@@ -60,7 +62,17 @@ export default {
         sources.push(source);
       }
 
+      let unhiddenEvents = [];
+      eventLoop:
       for (let event of this.events) {
+        for (let key of event.categories) {
+          let category = this.categories[key];
+          if (category.isHidden) continue eventLoop;
+        }
+        unhiddenEvents.push(event);
+      }
+
+      for (let event of unhiddenEvents) {
         for (let key of event.categories) {
           let category = this.categories[key];
           if (!category.isShowing) continue;
@@ -156,6 +168,11 @@ export default {
       for (let category in this.categories) shownCategories[category] = this.categories[category].isShowing;
       this.$cookies.set("categoriesShowing", shownCategories);
       
+      // Set hidden categories
+      let hiddenCategories = {};
+      for (let category in this.categories) hiddenCategories[category] = this.categories[category].isHidden;
+      this.$cookies.set("categoriesHidden", hiddenCategories);
+      
       // Set alarmed events
       let alarmedEvents = {};
       for (let event of this.events.filter(e => e.isAlarmed)) alarmedEvents[event.title] = true;
@@ -164,6 +181,9 @@ export default {
     readCookies() {
       let categoriesShowing = this.$cookies.get("categoriesShowing");
       for (let category in categoriesShowing) this.categories[category].isShowing = categoriesShowing[category];
+
+      let categoriesHidden = this.$cookies.get("categoriesHidden");
+      for (let category in categoriesHidden) this.categories[category].isHidden = categoriesHidden[category];
 
       let alarmedEvents = this.$cookies.get("alarmedEvents");
       for (let alarmed in alarmedEvents) {
@@ -187,7 +207,7 @@ export default {
 
 <style lang="scss">
 $backgroundColor: black;
-$maingroundColor: white;
+$maingroundColor: rgba(255, 255, 255, 0.7);
 
 body {
   margin: 0;
@@ -200,20 +220,21 @@ body {
   text-align: center;
   color: #2c3e50;
 
+  background-image: url("./assets/images/wallpaper.png");
+  background-attachment: fixed;
+
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-body, #app, #content {
-  background-color: $backgroundColor;
-}
-
 #content {
   max-width: 1280px;
   padding: 10px;
-   
-  background-color: $maingroundColor;
+}
+
+#main {
+  height: 790px;
 }
 
 #calendarContainer {
@@ -227,5 +248,12 @@ body, #app, #content {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+// SHADOW class
+.whiteShadow {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px 10px rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
 }
 </style>
