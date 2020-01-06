@@ -29,6 +29,8 @@
 <script>
 import Timer from './Timer.vue'
 
+import shared from '@/assets/scripts/shared.js'
+
 export default {
     props: [ "event", "categories", "notificationsEnabled" ],
     components: {
@@ -51,12 +53,6 @@ export default {
         }
     },
     methods: {
-        toCamelCase(str) {
-            let split = str.split(" ");
-            let camelCased = split[0].toLowerCase();
-            for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
-            return camelCased;
-        },
         toggleAllOthers(catKey) {
             for (let key in this.categories) {
                 this.categories[key].isShowing = false;
@@ -65,6 +61,9 @@ export default {
             this.$emit('showingToggle');
         }
     },
+    created() {
+        this.toCamelCase = shared.toCamelCase
+    }
 }
 </script>
 

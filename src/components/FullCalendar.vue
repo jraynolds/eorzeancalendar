@@ -10,6 +10,8 @@ import Dotdotdot from 'dotdotdot-js'
 import FullCalendar from '@fullcalendar/vue'
 import timeGridPlugin from '@fullcalendar/timegrid'
 
+import shared from '@/assets/scripts/shared.js'
+
 export default {
     components: {
         FullCalendar
@@ -21,7 +23,15 @@ export default {
             eventRender: function(info) {
                 let extendedProps = info.event.extendedProps;
 
-                let split = info.event.title.split(" ");
+                let strip = true;
+                let string = info.event.title;
+                let disallowedCharacters = [":",">","<", ".", "!", "?"];
+                if (strip) {
+                    for (let char of disallowedCharacters) {
+                        string = string.replace(char, "");
+                    }
+                }
+                let split = string.split(" ");
                 let camelCased = split[0].toLowerCase();
                 for (let i=1; i<split.length; i++) camelCased += split[i][0].toUpperCase() + split[i].slice(1);
                 
@@ -82,13 +92,8 @@ export default {
             return new Date().getHours() + ":00:00";
         }
     },
-    methods: {
-        toCamelCase(string) {
-            let split = string.split(" ");
-            let camel = split[0].toLowerCase();
-            for (let i=1; i<split.length; i++) camel += split[i][0].toUpperCase() + split[i].slice(1);
-            return camel;
-        }
+    created() {
+        this.toCamelCase = shared.toCamelCase
     }
 }
 </script>
