@@ -11,8 +11,10 @@
                     </span>
                 </p>
             </div>
-            <div class="eventCard__image" :style="{backgroundImage: 'url(' + require('@/assets/images/events/headers/' + event.header) + ')'}"></div>
-            <h2 class="eventCard__title">{{ event.title }}</h2>
+            <a :href="event.link" target="_blank">
+                <div class="eventCard__image" :style="{backgroundImage: 'url(' + require('@/assets/images/events/headers/' + event.header) + ')'}"></div>
+                <h2 class="eventCard__title">{{ event.title }}</h2>
+            </a>
             <p class="eventCard__desc">{{ event.description }}</p>
             <p class="eventCard__loc">
                 <span class="eventCard__world">{{ event.location.world }}: </span>
@@ -107,6 +109,7 @@ $cardFontColor: #2c3e50;
     &__image {
         height: 200px;
         background-position: center;
+        background-size: cover;
     }
 
     &__title {

@@ -1,8 +1,12 @@
 <template>
     <div id="head" class="whiteShadow">
-        <span id="titleStart">Eorzean</span>
+        <span class="spacer"/>
+        <div id="title" style="flex-grow: 1;">
+            <span id="titleStart">Eorzean</span>
             <img src="@/assets/images/calendar.svg"/>
-        <span id="titleEnd">Calendar</span>
+            <span id="titleEnd">Calendar</span>
+        </div>
+        <span class="spacer">All times in PST. Crystal datacenter only, for now.</span>
     </div>
 </template>
 
@@ -24,18 +28,28 @@ export default {
     font-family: 'coolvetica', Helvetica, Arial, sans-serif;
     height: 80px;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    display: grid;
+    grid-template-columns: 1fr 600px 1fr;
 }
 
 img {
-    height: 100%;
+    height: 80px;
     margin-left: 20px;
     margin-right: 20px;
 }
 
-#titleStart, #titleEnd {
+#title {
+    display: flex;
+    align-items: center;
     font-size: 50pt;
+}
+
+.spacer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 20px;
 }
 </style>
