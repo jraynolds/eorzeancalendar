@@ -32,6 +32,17 @@
         "hoveredThisInstance": false,
         "events": []
     },
+    "fc": {
+        "title": "FC",
+        "backgroundColor": "lightblue",
+        "borderColor": "gold",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
     "nsfw": {
         "title": "NSFW",
         "backgroundColor": "palevioletred",

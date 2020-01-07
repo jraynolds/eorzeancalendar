@@ -61,5 +61,45 @@
         "categories": ["bar"],
         "isAlarmed": false,
         "hasRungToday": false
+    },
+    {
+        "title": "Pleasure Dome: Date Auction",
+        "start": "2020-01-10T20:00:00-05:00",
+        "end": "2020-01-10T24:00:00-05:00",
+        "groupId": "PleasureDome",
+        "header": "pleasureDome.png",
+        "link": "https://evildemoncat.wixsite.com/ffxivpleasuredome",
+        "stringTime": "5PM, Jan 10th",
+        "description": "On stage at the Pleasure Dome you'll have the chance of a lifetime--a date with some of Eorzea's finest... if your bid is right.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Balmung",
+            "housing": "Mist",
+            "ward": 21,
+            "plot": 5
+        },
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Dragon's Dive: Sparring Night",
+        "start": "2020-01-07T19:00:00-05:00",
+        "end": "2020-01-07T23:00:00-05:00",
+        "groupId": "DragonsDive",
+        "header": "dragonsDive.jpg",
+        "link": "https://dragonsdive.carrd.co/",
+        "stringTime": "4PM, Jan 7th",
+        "description": "Come see what the Dragon's Dive has to offer! The FC offers a night of friendly sparring. Come see the fights--or take part yourself!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Shirogane",
+            "ward": 6,
+            "plot": 7
+        },
+        "categories": ["fc"],
+        "isAlarmed": false,
+        "hasRungToday": false
     }
 ]
