@@ -79,6 +79,9 @@ $cardFontColor: #2c3e50;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    margin-bottom: 20px;
+
+    text-align: center;
 
     // transition: 1s background-color;
 
@@ -126,6 +129,10 @@ $cardFontColor: #2c3e50;
 
     &__time, &__loc {
         font-style: italic;
+    }
+
+    &__loc {
+        text-align: left;
     }
 
     a {
