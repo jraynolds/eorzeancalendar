@@ -1,0 +1,57 @@
+{
+    "club": {
+        "title": "Club",
+        "backgroundColor": "mistyrose",
+        "borderColor": "darkred",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "bar": {
+        "title": "Bar",
+        "backgroundColor": "darkorange",
+        "borderColor": "darkred",
+        "textColor": "white",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "art": {
+        "title": "Art",
+        "backgroundColor": "palegoldenrod",
+        "borderColor": "white",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "fc": {
+        "title": "FC",
+        "backgroundColor": "lightblue",
+        "borderColor": "slategrey",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "nsfw": {
+        "title": "NSFW",
+        "backgroundColor": "palevioletred",
+        "borderColor": "darkred",
+        "textColor": "white",
+        "isShowing": false,
+        "isHidden": true,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    }
+}

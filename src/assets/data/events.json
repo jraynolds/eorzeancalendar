@@ -1,0 +1,229 @@
+[
+    {
+        "title": "Lightwarden Club",
+        "startRecur": "2020-01-08",
+        "startTime": "19:00:00-08:00",
+        "endTime": "23:00:00-08:00",
+        "daysOfWeek": [3,4,5,6,0],
+        "groupId": "LightWarden",
+        "header": "lightwarden.png",
+        "logo": "lightwarden.png",
+        "link": "http://lightwarden.tk",
+        "stringTime": "7-11PM Weds-Sun",
+        "description": "There's a place for every sinner. Come bathe yourself in the light that eradicates all sins--and spend time with others who indulge themselves.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Lavender Beds",
+            "ward": 13,
+            "plot": 36
+        },
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Broken Arpeggios: Open Mic Night",
+        "startRecur": "2020-01-08",
+        "startTime": "21:00:00-05:00",
+        "endTime": "23:00:00-05:00",
+        "daysOfWeek": [3],
+        "groupId": "BrokenArpeggios",
+        "header": "brokenArpeggios.jpg",
+        "link": "https://cdn.discordapp.com/attachments/664569963092246530/664579815877115934/Arpeggios_Recruit.jpg",
+        "description": "Come listen to BA's stellar band of performers play on the Voodoo Club's premier stage! Eat, drink, be merry--and if the inspiration strikes you, play along!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Lavender Beds",
+            "ward": 5,
+            "plot": 11
+        },
+        "categories": ["art"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Voodoo Club: Moulin Rouge Burlesque/Casino",
+        "startRecur": "2020-01-12",
+        "startTime": "21:00:00-06:00",
+        "endTime": "23:00:00-06:00",
+        "daysOfWeek": [3],
+        "groupId": "VoodooClub",
+        "header": "moulinRouge.png",
+        "link": "https://cdn.discordapp.com/attachments/414839881119039488/655849480075214858/blank2.png",
+        "description": "For those with a penchant for thrown dice, cards and shows of beauty, the Voodoo Club will bare all! Be delightfully teased... or join in the fun yourself!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Goblet",
+            "ward": 5,
+            "plot": 30
+        },
+        "categories": ["nsfw", "club"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Infinity Club",
+        "startRecur": "2020-01-08",
+        "startTime": "19:00:00-06:00",
+        "endTime": "22:00:00-06:00",
+        "daysOfWeek": [0, 3],
+        "groupId": "InfinityClub",
+        "header": "infinityClub.jpg",
+        "link": "https://infinityclub.carrd.co/",
+        "description": "Drink and dance the night away at the Infinity Club! There's something for everyone--whether alcohol, fine foods, reading or a soak is what you need most.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Goblet",
+            "ward": 21,
+            "plot": 43
+        },
+        "categories": ["club"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Twin Otters Tavern",
+        "startRecur": "2020-01-08",
+        "startTime": "22:00:00-05:00",
+        "endTime": "24:00:00-05:00",
+        "daysOfWeek": [3],
+        "groupId": "TwinOtters",
+        "header": "twinOtters.png",
+        "link": "https://twinotterstavern.carrd.co/",
+        "description": "Look no further for a welcoming and relaxing place to rest after a long day's work. All are welcome to come and enjoy a variety of drinks, dishes and more!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Couerl",
+            "housing": "Lavender Beds",
+            "ward": 20,
+            "plot": 9
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Blue Miqo'te Bar",
+        "startRecur": "2020-01-12",
+        "startTime": "21:00:00-06:00",
+        "endTime": "23:00:00-06:00",
+        "daysOfWeek": [0],
+        "groupId": "VoodooClub",
+        "header": "blueMiqote.jpg",
+        "link": "https://bluemiqo.carrd.co/",
+        "description": "Relax to smooth jazz at the Voodoo Club-affiliated Blue Miqo'te bar! Enjoy our hospitality, fare, karaoke... or a private room and be waited upon specially.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Goblet",
+            "ward": 1,
+            "plot": 29
+        },
+        "categories": ["bar", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Lightwarden: Pajama Party!",
+        "start": "2020-01-05T19:00:00-08:00",
+        "end": "2020-01-05T23:00:00-08:00",
+        "groupId": "LightWarden",
+        "header": "lightPJ.png",
+        "logo": "lightwarden.png",
+        "link": "https://cdn.discordapp.com/attachments/636574060481871873/658969323750031400/pajampartyfull.png",
+        "description": "Light Warden is hosting its very own post-New Years Pajamas and Chill Party! Trivia, movies and a few dozen pillow fights. Everyone is welcome.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Lavender Beds",
+            "ward": 13,
+            "plot": 36
+        },
+        "categories": ["club"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Playboy Mansion",
+        "startRecur": "2020-01-11",
+        "startTime": "20:00:00-08:00",
+        "endTime": "24:00:00-09:00",
+        "daysOfWeek": [6,0],
+        "groupId": "PlayboyMansion",
+        "header": "playboyMansion.png",
+        "link": "https://www.playboymansion.info/",
+        "description": "If you’re looking for a memorable night out, the Playboy Mansion has been redefining special entertainment since 2019. Our star-studded lineups are sure to keep you entertained all night long.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Mist",
+            "ward": 21,
+            "plot": 35
+        },
+        "categories": ["nsfw", "club"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "The Haven: Gaymer Spa",
+        "start": "2020-01-05T19:00:00-08:00",
+        "end": "2020-01-05T24:00:00-08:00",
+        "groupId": "TheHaven",
+        "header": "theHaven.png",
+        "link": "https://the-haven.carrd.co/",
+        "description": "Come on down to The Haven, a Gaymer-friendly spa and bar looking to give anyone and everyone the chance to relax! Come soak and take a load off.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Goblin",
+            "housing": "Goblet",
+            "ward": 7,
+            "plot": 4
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Pleasure Dome: Date Auction",
+        "start": "2020-01-10T20:00:00-05:00",
+        "end": "2020-01-10T24:00:00-05:00",
+        "groupId": "PleasureDome",
+        "header": "pleasureDome.png",
+        "link": "https://evildemoncat.wixsite.com/ffxivpleasuredome",
+        "description": "On stage at the Pleasure Dome you'll have the chance of a lifetime--a date with some of Eorzea's finest... if your bid is right.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Balmung",
+            "housing": "Mist",
+            "ward": 21,
+            "plot": 5
+        },
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Dragon's Dive: Sparring Night",
+        "start": "2020-01-07T19:00:00-05:00",
+        "end": "2020-01-07T23:00:00-05:00",
+        "groupId": "DragonsDive",
+        "header": "dragonsDive.jpg",
+        "link": "https://dragonsdive.carrd.co/",
+        "description": "Come see what the Dragon's Dive has to offer! The FC offers a night of friendly sparring. Come see the fights--or take part yourself!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Shirogane",
+            "ward": 6,
+            "plot": 7
+        },
+        "categories": ["fc"],
+        "isAlarmed": false,
+        "hasRungToday": false,
+        "durationEditable": false
+    }
+]
