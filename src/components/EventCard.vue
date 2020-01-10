@@ -5,7 +5,7 @@
 			height="420px"
 			width="320px"
 			style="overflow: hidden;"
-			:class="event.categories" 
+			:class="isHighlit"
 			:id="toCamelCase(event.title)" 
 			:style="{ backgroundColor: getActiveCategory.backgroundColor }" 
 			v-if="isShowing"
@@ -65,13 +65,11 @@ export default {
 		},
 		timeString() {
 			if (this.event.stringTime) return this.event.stringTime;
-			let start = null;
-			let end = null;
+			let start = shared.getNextDate(this.event);
+			let end = shared.getNextDate(this.event, "end");
 			let m = "AM";
 			let endString = "";
 			if (this.event.startTime) { // This is a recurring event.
-				start = shared.parseEventTime(this.event.startTime);
-				end = shared.parseEventTime(this.event.endTime);
 				let daysOfWeek = this.event.daysOfWeek;
 				if (daysOfWeek.length == 2 && daysOfWeek.includes(0) && daysOfWeek.includes(6)) {
 					endString = "Weekends";
@@ -85,8 +83,6 @@ export default {
 					endString = endString.slice(0, endString.length-2);
 				}
 			} else { // This is a one-time event.
-				start = shared.parseEventTime(this.event.start);
-				end = shared.parseEventTime(this.event.end);
 				const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 				endString = monthNames[start.getMonth()] + " " + start.getDate();
 			}
@@ -101,6 +97,9 @@ export default {
 		},
 		locationString() {
 			return `${this.event.location.world}: ${this.event.location.housing}, ward ${this.event.location.ward} plot ${this.event.location.plot}`
+		},
+		isHighlit() {
+			return	{isOccurring: shared.isCurrentlyOccurring(this.event)};
 		}
 	},
 	methods: {
@@ -136,5 +135,9 @@ $cardFontColor: #2c3e50;
 		text-decoration: none;
 		color: $cardFontColor;
 	}
+}
+
+.isOccurring {
+	box-shadow: 0 0 5px 4px red;
 }
 </style>

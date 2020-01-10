@@ -18,5 +18,25 @@
         "categories": ["club", "nsfw"],
         "isAlarmed": false,
         "hasRungToday": false
+    },
+    {
+        "title": "Rose and Thorn Tavern",
+        "start": "2020-01-07T19:00:00-05:00",
+        "end": "2020-01-07T23:00:00-05:00",
+        "groupId": "RoseAndThorn",
+        "header": "roseAndThorn.jpg",
+        "link": "https://rtbarmenu.carrd.co/",
+        "description": "Come see what the Dragon's Dive has to offer! The FC offers a night of friendly sparring. Come see the fights--or take part yourself!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Mateus",
+            "housing": "Goblet",
+            "ward": 6,
+            "plot": 6
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false,
+        "notes": "THIS IS BIWEEKLY"
     }
 ]

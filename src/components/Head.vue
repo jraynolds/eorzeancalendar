@@ -2,7 +2,8 @@
     <v-row no-gutters
         height="80px"
     >
-        <v-col cols="1"/>
+        <v-col cols="1">
+        </v-col>
         <v-col cols="10">
             <v-row
                 justify="center"
@@ -28,6 +29,11 @@
             align-self="end"
         >
             <div class="disclaimer">All times in PST. Crystal datacenter only, for now.</div>
+            <a href="https://forms.gle/2m5XAdM8dFCuRh638">
+                <div class="disclaimer">
+                    Click to submit your own.
+                </div>
+            </a>
         </v-col>
       </v-row>
 </template>
