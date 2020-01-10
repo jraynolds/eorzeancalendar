@@ -149,6 +149,27 @@
         "hasRungToday": false
     },
     {
+        "title": "The Epoch",
+        "startRecur": "2020-01-09",
+        "startTime": "19:00:00",
+        "endTime": "21:00:00",
+        "daysOfWeek": [4],
+        "groupId": "Epoch",
+        "header": "epoch.jpg",
+        "link": "https://epoch-tavern.tumblr.com/",
+        "description": "Comfort with a touch of class: Epoch promotes a comfortable open atmosphere for mingling with new or current friends. Enjoy good food, drink, and ambiance.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Balmung",
+            "housing": "Mist",
+            "ward": 11,
+            "plot": 2
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
         "title": "Playboy Mansion",
         "startRecur": "2020-01-11",
         "startTime": "20:00:00",
