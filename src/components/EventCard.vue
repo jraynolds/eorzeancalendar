@@ -32,8 +32,8 @@
 				/>
 				<h2>{{ event.title }}</h2>
 			</a>
-			<v-col align-center class="flex-grow-1 py-0 align-center" style="font-size: .9em;">{{ event.description }}<!--{{ locationString }}--></v-col>
-			<v-col class="font-italic py-0 px-1 flex-grow-0 text-left" style="font-size: .8em;">Malboro: Lavender Beds, ward 13 plot 36</v-col>
+			<v-col align-center class="flex-grow-1 py-0 align-center" style="font-size: .9em;">{{ event.description }}</v-col>
+			<v-col class="font-italic py-0 px-1 flex-grow-0 text-left" style="font-size: .8em;">{{ locationString }}</v-col>
 		</v-card>
 	</transition>
 </template>
@@ -94,6 +94,9 @@ export default {
 			if (end.getHours() > 12) m = "PM";
 
 			return `${start.getHours() - 12}-${Math.abs(end.getHours() - 12)} ${m}, ${endString}`
+		},
+		locationString() {
+			return `${this.event.location.world}: ${this.event.location.housing}, ward ${this.event.location.ward} plot ${this.event.location.plot}`
 		}
 	},
 	methods: {

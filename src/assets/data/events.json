@@ -44,6 +44,27 @@
         "hasRungToday": false
     },
     {
+        "title": "Oak's Tradepost",
+        "startRecur": "2020-01-09",
+        "startTime": "18:00:00-06:00",
+        "endTime": "20:00:00-06:00",
+        "daysOfWeek": [4],
+        "groupId": "OaksTradepost",
+        "header": "oaksTradepost.png",
+        "link": "https://docs.google.com/presentation/d/1nKbCpTpLGuzWYJ8tsafx7iblyauaTAUI5jqZQ358QYE/edit#slide=id.p",
+        "description": "Swing by for flavorful drinks, fresh foods and fun company, all to the lively tunes played by our friendly musicians! And for the adventurous--a sushi meal challenge!",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Balmung",
+            "housing": "Mist",
+            "ward": 2,
+            "plot": 29
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
         "title": "Voodoo Club: Moulin Rouge Burlesque/Casino",
         "startRecur": "2020-01-12",
         "startTime": "21:00:00-06:00",
