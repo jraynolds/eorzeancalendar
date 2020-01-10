@@ -88,12 +88,16 @@ export default {
 				start = shared.parseEventTime(this.event.start);
 				end = shared.parseEventTime(this.event.end);
 				const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-				endString = monthNames[start.getMonth()] + " " + start.getDay();
+				endString = monthNames[start.getMonth()] + " " + start.getDate();
 			}
 
 			if (end.getHours() > 12) m = "PM";
 
-			return `${start.getHours() - 12}-${Math.abs(end.getHours() - 12)} ${m}, ${endString}`
+			let startOut = (start.getHours() - 12).toString();
+			if (start.getMinutes()) startOut += ":" + start.getMinutes();
+			let endOut = (Math.abs(end.getHours() - 12)).toString();
+			if (end.getMinutes()) endOut += ":" + end.getMinutes();
+			return `${startOut}-${endOut}${m}, ${endString}`
 		},
 		locationString() {
 			return `${this.event.location.world}: ${this.event.location.housing}, ward ${this.event.location.ward} plot ${this.event.location.plot}`

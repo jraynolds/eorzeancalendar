@@ -43,6 +43,28 @@
         "hoveredThisInstance": false,
         "events": []
     },
+    "prizes": {
+        "title": "Prizes",
+        "backgroundColor": "lightgrey",
+        "borderColor": "slategrey",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
+    "games": {
+        "title": "Games",
+        "backgroundColor": "sandybrown",
+        "borderColor": "lightpink",
+        "textColor": "white",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
     "nsfw": {
         "title": "NSFW",
         "backgroundColor": "palevioletred",
