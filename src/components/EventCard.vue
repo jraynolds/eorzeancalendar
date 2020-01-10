@@ -32,7 +32,7 @@
 				/>
 				<h2>{{ event.title }}</h2>
 			</a>
-			<v-col align-center class="flex-grow-1 py-0 align-center" style="font-size: .9em;">{{ event.description }}</v-col>
+			<v-col align-center class="flex-grow-1 pa-0 align-center" style="font-size: .9em;">{{ event.description }}</v-col>
 			<v-col class="font-italic py-0 px-1 flex-grow-0 text-left" style="font-size: .8em;">{{ locationString }}</v-col>
 		</v-card>
 	</transition>
