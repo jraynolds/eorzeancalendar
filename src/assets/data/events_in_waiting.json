@@ -38,5 +38,86 @@
         "isAlarmed": false,
         "hasRungToday": false,
         "notes": "THIS IS BIWEEKLY"
+    },
+    {
+        "title": "Black Ivy",
+        "startRecur": "2020-01-10",
+        "startTime": "15:00:00",
+        "endTime": "19:00:00",
+        "daysOfWeek": [5,6],
+        "groupId": "BlackIvy",
+        "link": "",
+        "description": "Enter Eorzea's forbidden forest and pierce the delightful mysteries within. The Black Ivy is Balmung's up and coming lounge and brothel--guaranteed to give you an experience you won't forget.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Balmung",
+            "housing": "Shirogane",
+            "ward": 4,
+            "plot": 59
+        },
+        "categories": ["nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Barheim Brewery",
+        "startRecur": "2020-01-10",
+        "startTime": "18:30:00",
+        "endTime": "22:00:00",
+        "daysOfWeek": [2, 5],
+        "groupId": "BarheimBrewery",
+        "header": "barheimBrewey.png",
+        "description": "If you’re looking for a memorable night out, the Playboy Mansion has been redefining special entertainment since 2019. Our star-studded lineups are sure to keep you entertained all night long.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Zalera",
+            "housing": "Goblet",
+            "ward": 14,
+            "plot": 14
+        },
+        "categories": ["bar"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Galaxy Host Club",
+        "startRecur": "2020-01-10",
+        "startTime": "17:00:00",
+        "endTime": "21:00:00",
+        "daysOfWeek": [5],
+        "groupId": "GalaxyClub",
+        "header": "galaxyClub.png",
+        "description": "If you’re looking for a memorable night out, the Playboy Mansion has been redefining special entertainment since 2019. Our star-studded lineups are sure to keep you entertained all night long.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Mist",
+            "ward": 21,
+            "plot": 15
+        },
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "The Summoner's Dream Maid Cafe",
+        "startRecur": "2020-01-11",
+        "startTime": "20:00:00",
+        "endTime": "24:00:00",
+        "daysOfWeek": [6,0],
+        "groupId": "PlayboyMansion",
+        "header": "playboyMansion.png",
+        "link": "https://www.playboymansion.info/",
+        "description": "If you’re looking for a memorable night out, the Playboy Mansion has been redefining special entertainment since 2019. Our star-studded lineups are sure to keep you entertained all night long.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Coeurl",
+            "housing": "Mist",
+            "ward": 17,
+            "plot": 6
+        },
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
     }
 ]

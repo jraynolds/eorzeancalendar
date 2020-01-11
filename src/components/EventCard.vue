@@ -26,9 +26,16 @@
 			</v-row>
 			<a :href="event.link" target="_blank">
 				<v-img
+					v-if="event.header"
 					height="200px"
 					:alt="event.title + ' Header'"
 					:src="require('@/assets/images/events/headers/' + event.header)"
+				/>
+				<v-img
+					v-else
+					height="200px"
+					:alt="event.title + ' Placeholder'"
+					:src="require('@/assets/images/events/headers/placeholder.jpg')"
 				/>
 				<h2>{{ event.title }}</h2>
 			</a>

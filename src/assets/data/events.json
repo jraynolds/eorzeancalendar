@@ -81,7 +81,7 @@
             "ward": 5,
             "plot": 30
         },
-        "categories": ["nsfw", "club"],
+        "categories": ["club", "nsfw"],
         "isAlarmed": false,
         "hasRungToday": false
     },
@@ -207,7 +207,27 @@
             "ward": 21,
             "plot": 35
         },
-        "categories": ["nsfw", "club"],
+        "categories": ["club", "nsfw"],
+        "isAlarmed": false,
+        "hasRungToday": false
+    },
+    {
+        "title": "Galaxy Host Club",
+        "startRecur": "2020-01-10",
+        "startTime": "17:00:00",
+        "endTime": "21:00:00",
+        "daysOfWeek": [5],
+        "groupId": "GalaxyClub",
+        "header": "galaxyClub.jpg",
+        "description": "Come dance under the night skies! Join our star-studded cast of hosts and hostesses in a night of wild abandon and revelry. The night is long and anything at all could happen.",
+        "location": {
+            "datacenter": "Crystal",
+            "world": "Malboro",
+            "housing": "Mist",
+            "ward": 21,
+            "plot": 15
+        },
+        "categories": ["club", "nsfw"],
         "isAlarmed": false,
         "hasRungToday": false
     },
