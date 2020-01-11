@@ -47,10 +47,11 @@ import Categories from '@/components/Categories.vue'
 import EventCards from '@/components/EventCards.vue'
 // import Foot from '@/components/Foot.vue'
 
+const fb = require('@/firebaseConfig.js')
 import categories from '@/assets/data/categories.json'
-import events from '@/assets/data/events.json'
 
 import shared from '@/assets/scripts/shared.js'
+import dbActions from '@/assets/scripts/dbActions.js'
 
 export default {
   name: 'app',
@@ -65,10 +66,11 @@ export default {
   data() {
     categories
     return {
-      events,
+      events: [],
       categories: categories,
       ticker: null,
-      addEvent: false
+      addEvent: false,
+      includeTemporary: false
     }
   },
   computed: {
@@ -208,13 +210,20 @@ export default {
           if (event.title == alarmed) event.isAlarmed = alarmedEvents[alarmed];
         }
       }
-    }
+    },
   },
   beforeMount() {
-    this.addEventsToCategories();
-    if (this.$cookies.keys().length == 0) this.setCookies();
-    else this.readCookies();
-    this.timeTicker();
+    let vm = this;
+    fb.db.collection("events").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (!this.includeTemporary && doc.data().isTemporary) return;
+        vm.events.push(dbActions.parseIntoEvent(doc.data(), this.includeTemporary));
+      });
+      this.addEventsToCategories();
+      if (this.$cookies.keys().length == 0) this.setCookies();
+      else this.readCookies();
+      this.timeTicker();
+    });
   },
   mounted() {
   }

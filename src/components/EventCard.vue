@@ -26,10 +26,10 @@
 			</v-row>
 			<a :href="event.link" target="_blank">
 				<v-img
-					v-if="event.header"
+					v-if="event.headerImg"
 					height="200px"
 					:alt="event.title + ' Header'"
-					:src="require('@/assets/images/events/headers/' + event.header)"
+					:src="require('@/assets/images/events/headers/' + event.headerImg)"
 				/>
 				<v-img
 					v-else
