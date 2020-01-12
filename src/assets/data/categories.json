@@ -10,6 +10,17 @@
         "hoveredThisInstance": false,
         "events": []
     },
+    "spa": {
+        "title": "Spas",
+        "backgroundColor": "lightgreen",
+        "borderColor": "darkblue",
+        "textColor": "black",
+        "isShowing": true,
+        "isHidden": false,
+        "isHovering": false,
+        "hoveredThisInstance": false,
+        "events": []
+    },
     "bar": {
         "title": "Bar",
         "backgroundColor": "darkorange",

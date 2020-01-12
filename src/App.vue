@@ -70,7 +70,7 @@ export default {
       categories: categories,
       ticker: null,
       addEvent: false,
-      includeTemporary: false
+      includeTemporary: true
     }
   },
   computed: {

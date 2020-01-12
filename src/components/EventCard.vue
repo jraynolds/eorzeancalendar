@@ -71,7 +71,7 @@ export default {
 			return isShowing;
 		},
 		timeString() {
-			if (this.event.stringTime) return this.event.stringTime;
+			if (this.event.timeString) return this.event.timeString;
 			let start = shared.getNextDate(this.event);
 			let end = shared.getNextDate(this.event, "end");
 			let m = "AM";
