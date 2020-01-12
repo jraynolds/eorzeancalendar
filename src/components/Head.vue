@@ -47,6 +47,8 @@ export default {
 	font-size: 50pt;
 	height: 80px;
 
+	color: #37474F;
+
 	display: flex;
 	align-items: center;
 }

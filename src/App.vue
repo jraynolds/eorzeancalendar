@@ -43,13 +43,11 @@ Vue.use(VueCookies);
 import Head from '@/components/Head.vue'
 import FullCalendar from '@/components/FullCalendar.vue'
 import Categories from '@/components/Categories.vue'
-// import EventForm from '@/components/EventForm.vue'
 import EventCards from '@/components/EventCards.vue'
-// import Foot from '@/components/Foot.vue'
 
-const fb = require('@/firebaseConfig.js')
 import categories from '@/assets/data/categories.json'
 
+const fb = require('@/firebaseConfig.js')
 import shared from '@/assets/scripts/shared.js'
 import dbActions from '@/assets/scripts/dbActions.js'
 
@@ -59,9 +57,7 @@ export default {
     Head,
     FullCalendar,
     Categories,
-    // EventForm,
     EventCards,
-    // Foot
   },
   data() {
     categories
@@ -255,7 +251,7 @@ header {
 }
 
 #calendarContainer {
-	height: 790px;
+	height: 690px;
 }
 
 .v-app-bar {
