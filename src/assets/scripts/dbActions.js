@@ -1,3 +1,5 @@
+const fb = require('@/firebaseConfig.js')
+
 export default {
     parseIntoEvent(data) {
         let event = data;
@@ -17,5 +19,10 @@ export default {
         }
 
         return event;
+    },
+    pushEvent(event) {
+        event.isTemporary = true;
+
+        fb.db.collection("events").add(event);
     }
 }
