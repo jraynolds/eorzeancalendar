@@ -269,7 +269,7 @@ export default {
 			if (this.isRecurring && event.daysOfWeek.filter(d => d.isChecked).length == 0) return false;
 			let isReady = event.title != "" && event.org != "" && event.description != "" && event.startTime != "" && event.endTime != "" && event.startDate != "" && event.location.datacenter.value != "" && event.location.world.value != "" && event.location.housing.value != "" && event.location.plot.value != "" && event.location.ward.value != "";
 			// eslint-disable-next-line no-console
-			console.log(isReady);
+			// console.log(isReady);
 			return isReady;
 		}
 	},
@@ -288,35 +288,35 @@ export default {
 
 			if (this.isRecurring) {
 				// eslint-disable-next-line no-console
-				console.log(this.event.daysOfWeek);
+				// console.log(this.event.daysOfWeek);
 				event.daysOfWeek = [];
 					// eslint-disable-next-line no-console
-					console.log(this.event.daysOfWeek);
+					// console.log(this.event.daysOfWeek);
 				for (let i=0; i<this.event.daysOfWeek.length; i++) {
 					// eslint-disable-next-line no-console
-					console.log(this.event.categories[i]);
+					// console.log(this.event.categories[i]);
 					if (this.event.daysOfWeek[i].isChecked) event.daysOfWeek.push(i);
 				}
 			}
 
 			event.categories = [];
 					// eslint-disable-next-line no-console
-					console.log(this.event.categories);
+					// console.log(this.event.categories);
 			for (let i=0; i<this.event.categories.length; i++) {
 			// eslint-disable-next-line no-console
-				console.log(this.event.categories[i]);
+				// console.log(this.event.categories[i]);
 				if (this.event.categories[i].isChecked) event.categories.push(this.event.categories[i].title);
 			}
 
 			event.location = {};
 					// eslint-disable-next-line no-console
-					console.log(this.event.location);
+					// console.log(this.event.location);
 			for (let key in this.event.location) {
 				event.location[key] = this.event.location[key].value;
 			}
 
 			// eslint-disable-next-line no-console
-			console.log(event);
+			// console.log(event);
 
 			dbActions.pushEvent(event);
 		}

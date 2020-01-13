@@ -7,8 +7,7 @@
 			height="80px"
       style="box-shadow: 0 0 5px 10px rgba(255, 255, 255, 0.8);"
 		>
-			<!-- hide-on-scroll -->
-			<Head/>
+			<Head v-on:server-selected="loadEvents"/>
 		</v-app-bar>
 		<v-content 
 			id="content"
@@ -66,7 +65,8 @@ export default {
       categories: categories,
       ticker: null,
       addEvent: false,
-      includeTemporary: true
+      includeTemporary: true,
+      datacenter: "Crystal"
     }
   },
   computed: {
@@ -178,6 +178,9 @@ export default {
       event.hasRungToday = true;
     },
     setCookies() {
+      // Set datacenter
+      this.$cookies.set("datacenter", this.datacenter);
+
       // Set shown categories
       let shownCategories = {};
       for (let category in this.categories) shownCategories[category] = this.categories[category].isShowing;
@@ -194,6 +197,9 @@ export default {
       this.$cookies.set("alarmedEvents", alarmedEvents);
     },
     readCookies() {
+      let datacenter = this.$cookies.get("datacenter");
+      if (datacenter) this.datacenter = datacenter;
+
       let categoriesShowing = this.$cookies.get("categoriesShowing");
       for (let category in categoriesShowing) this.categories[category].isShowing = categoriesShowing[category];
 
@@ -207,19 +213,27 @@ export default {
         }
       }
     },
-  },
-  beforeMount() {
-    let vm = this;
-    fb.db.collection("events").get().then((querySnapshot) => {
+    loadEvents(datacenter) {
+      this.datacenter = datacenter;
+      this.events = [];
+      let vm = this;
+
+      fb.db.collection("events").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (!this.includeTemporary && doc.data().isTemporary) return;
-        vm.events.push(dbActions.parseIntoEvent(doc.data(), this.includeTemporary));
+        if (doc.data().location.datacenter != datacenter) return;
+        vm.events.push(dbActions.parseIntoEvent(doc.data()));
       });
       this.addEventsToCategories();
       if (this.$cookies.keys().length == 0) this.setCookies();
       else this.readCookies();
       this.timeTicker();
     });
+    }
+  },
+  beforeMount() {
+    this.readCookies();
+    this.loadEvents(this.datacenter);
   },
   mounted() {
   }

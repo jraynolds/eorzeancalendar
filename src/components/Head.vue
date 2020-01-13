@@ -1,36 +1,42 @@
 <template>
-	<div id="head" style="height: 80px; width: 100%; display: grid; grid-template-columns: 1fr 600px 1fr;">
-		<div style="display: flex; align-items: flex-end;">
-			<div class="disclaimer">All times in PST. Crystal datacenter only, for now.</div>
-		</div>
-		<v-row
-			justify="center"
-		>
-			<span class="headTitle">Eorzean</span>
-			<v-img
-				alt="Calendar Logo"
-				class="shrink mx-6"
-				contain
-				src="@/assets/images/calendar.svg"
-				transition="scale-transition"
-				height="80"
-				width="80"
-			/>
-			<span class="headTitle">Calendar</span>
+	<div id="head" style="width:100%;">
+		<v-row>
+			<v-col cols="2" style="align-self: flex-end">
+				<DatacenterPicker v-on:server-selected="$emit('server-selected', $event)"/>
+			</v-col>
+			<v-col cols="8">
+				<v-row
+					justify="center"
+				>
+					<span class="headTitle">Eorzean</span>
+					<v-img
+						alt="Calendar Logo"
+						class="shrink mx-6"
+						contain
+						src="@/assets/images/calendar.svg"
+						transition="scale-transition"
+						height="80"
+						width="80"
+					/>
+					<span class="headTitle">Calendar</span>
+				</v-row>
+			</v-col>
+			<v-col cols="2" align="end" style="align-self: flex-end;">
+				<AddEventForm/>
+			</v-col>
 		</v-row>
-		<div class="justify-end" style="display: flex; align-items: flex-end;">
-			<AddEventForm/>
-		</div>
 	</div>
 </template>
 
 <script>
 import AddEventForm from '@/components/AddEventForm.vue'
+import DatacenterPicker from '@/components/DatacenterPicker.vue'
 
 export default {
 	components: {
-		AddEventForm
-	}	
+		AddEventForm,
+		DatacenterPicker
+	}
 }
 </script>
 
