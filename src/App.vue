@@ -7,7 +7,7 @@
 			height="80px"
       style="box-shadow: 0 0 5px 10px rgba(255, 255, 255, 0.8);"
 		>
-			<Head v-on:server-selected="loadEvents"/>
+			<Head v-on:server-selected="loadEvents" :datacenter="datacenter"/>
 		</v-app-bar>
 		<v-content 
 			id="content"
@@ -178,9 +178,6 @@ export default {
       event.hasRungToday = true;
     },
     setCookies() {
-      // Set datacenter
-      this.$cookies.set("datacenter", this.datacenter);
-
       // Set shown categories
       let shownCategories = {};
       for (let category in this.categories) shownCategories[category] = this.categories[category].isShowing;
@@ -198,7 +195,11 @@ export default {
     },
     readCookies() {
       let datacenter = this.$cookies.get("datacenter");
+      // eslint-disable-next-line no-console
+      console.log(datacenter);
       if (datacenter) this.datacenter = datacenter;
+      // eslint-disable-next-line no-console
+      console.log(this.datacenter);
 
       let categoriesShowing = this.$cookies.get("categoriesShowing");
       for (let category in categoriesShowing) this.categories[category].isShowing = categoriesShowing[category];
@@ -219,21 +220,33 @@ export default {
       let vm = this;
 
       fb.db.collection("events").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (!this.includeTemporary && doc.data().isTemporary) return;
-        if (doc.data().location.datacenter != datacenter) return;
-        vm.events.push(dbActions.parseIntoEvent(doc.data()));
+        querySnapshot.forEach((doc) => {
+          if (!this.includeTemporary && doc.data().isTemporary) return;
+          if (doc.data().location.datacenter != datacenter) return;
+          vm.events.push(dbActions.parseIntoEvent(doc.data()));
+        });
+        this.addEventsToCategories();
+        this.$cookies.set("datacenter", this.datacenter);
+        this.timeTicker();
       });
-      this.addEventsToCategories();
-      if (this.$cookies.keys().length == 0) this.setCookies();
-      else this.readCookies();
-      this.timeTicker();
-    });
     }
   },
   beforeMount() {
     this.readCookies();
-    this.loadEvents(this.datacenter);
+    
+    this.events = [];
+      let vm = this;
+
+      fb.db.collection("events").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (!this.includeTemporary && doc.data().isTemporary) return;
+          if (doc.data().location.datacenter != this.datacenter) return;
+          vm.events.push(dbActions.parseIntoEvent(doc.data()));
+        });
+        this.addEventsToCategories();
+        if (this.$cookies.keys().length == 0) this.setCookies();
+        this.timeTicker();
+      });
   },
   mounted() {
   }

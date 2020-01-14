@@ -2,7 +2,7 @@
 	<div id="head" style="width:100%;">
 		<v-row>
 			<v-col cols="2" style="align-self: flex-end">
-				<DatacenterPicker v-on:server-selected="$emit('server-selected', $event)"/>
+				<DatacenterPicker :datacenter="datacenter" v-on:server-selected="$emit('server-selected', $event)"/>
 			</v-col>
 			<v-col cols="8">
 				<v-row
@@ -36,7 +36,8 @@ export default {
 	components: {
 		AddEventForm,
 		DatacenterPicker
-	}
+	},
+	props: [ "datacenter" ]
 }
 </script>
 

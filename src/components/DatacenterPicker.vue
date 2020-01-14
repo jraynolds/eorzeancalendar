@@ -5,31 +5,29 @@
         :items="regions" 
         v-model="selectedRegion" 
         height="20" 
-        hide-details
-        @change="$emit('region-selected', regions.find(r => r.value == selectedRegion).text)" />
+        hide-details />
     </v-col>
     <v-col class="py-0" style="align-self: flex-end;">
       <v-select 
         :items="selectedRegion" 
-        v-model="selectedServer" 
-        height="20" 
-        hide-details 
-        @change="$emit('server-selected', selectedRegion.find(r => r.value == selectedServer).text)" />
-    </v-col>
-    <v-col v-if="includeWorlds" style="align-self: flex-end;">
-      <v-select 
-        :items="selectedServer" 
         v-model="selectedDatacenter" 
         height="20" 
         hide-details 
-        @change="$emit('datacenter-selected', selectedDatacenter)" />
+        @change="$emit('server-selected', selectedRegion.find(r => r.value == selectedDatacenter).text)" />
+    </v-col>
+    <v-col v-if="includeWorlds" style="align-self: flex-end;">
+      <v-select 
+        :items="selectedDatacenter" 
+        v-model="selectedWorld" 
+        height="20" 
+        hide-details />
     </v-col>
   </v-row>
 </template>
 
 <script>
 export default {
-  props: ["includeWorlds"],
+  props: ["includeWorlds", "datacenter"],
   data() {
     let regions = [
       {
@@ -158,10 +156,35 @@ export default {
     ];
     return {
       regions: regions,
-      selectedRegion: regions[0].value,
-      selectedServer: regions[0].value[0].value,
-      selectedDatacenter: regions[0].value[0].value[0]
+      selectedRegion: "",
+      selectedDatacenter: "",
+      selectedWorld: ""
     };
+  },
+  methods: {
+    initialize() {
+      this.selectedRegion = this.getRegionFromDatacenterName(this.datacenter).value;
+      this.selectedDatacenter = this.getDatacenter(this.datacenter).value;
+    },
+    getRegionFromDatacenterName(datacenter) {
+      for (let r of this.regions) {
+        for (let d of r.value) {
+          if (d.text == datacenter) return r;
+        }
+      }
+      return null;
+    },
+    getDatacenter(datacenter) {
+      for (let r of this.regions) {
+        for (let d of r.value) {
+          if (d.text == datacenter) return d;
+        }
+      }
+      return null;
+    }
+  },
+  beforeMount() {
+    this.initialize();
   }
 };
 </script>
