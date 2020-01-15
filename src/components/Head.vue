@@ -22,7 +22,7 @@
 				</v-row>
 			</v-col>
 			<v-col cols="2" align="end" style="align-self: flex-end;">
-				<AddEventForm/>
+				<AddEventForm :datacenter="datacenter" />
 			</v-col>
 		</v-row>
 	</div>

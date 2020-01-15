@@ -95,17 +95,26 @@
 					<v-row>
 						<v-col cols="4">
 							<v-select
-								:items="event.location.datacenter.items"
-								v-model="event.location.datacenter.value"
-								label="Datacenter*"
-								disabled
+								:items="getRegions"
+								v-model="event.location.region"
+								label="Region*"
+								@change="event.location.world = ''; worldDisabled = true;"
 							/>
 						</v-col>
 						<v-col cols="4">
 							<v-select
-								:items="event.location.world.items"
-								v-model="event.location.world.value"
+								:items="getDatacenters"
+								v-model="event.location.datacenter"
+								label="Datacenter*"
+								@change="event.location.world = ''; worldDisabled = false"
+							/>
+						</v-col>
+						<v-col cols="4">
+							<v-select
+								:items="getWorlds"
+								v-model="event.location.world"
 								label="World*"
+								:disabled="worldDisabled"
 							/>
 						</v-col>
 						<v-col cols="4">
@@ -157,10 +166,138 @@
 import dbActions from '@/assets/scripts/dbActions.js'
 
 export default {
+	props: [ "datacenter" ],
 	data() {
+		let regions = [
+      {
+        text: "North America",
+        value: [
+          {
+            text: "Crystal",
+            value: [
+              "Balmung",
+              "Brynhildr",
+              "Coeurl",
+              "Diabolos",
+              "Goblin",
+              "Malboro",
+              "Mateus",
+              "Zalera"
+            ]
+          },
+          {
+            text: "Aether",
+            value: [
+              "Adamantoise",
+              "Cactuar",
+              "Faerie",
+              "Gilgamesh",
+              "Jenova",
+              "Midgardsormr",
+              "Sargatanas",
+              "Siren"
+            ]
+          },
+          {
+            text: "Primal",
+            value: [
+              "Behemoth",
+              "Excalibur",
+              "Exodus",
+              "Famfrit",
+              "Hyperion",
+              "Lamia",
+              "Leviathan",
+              "Ultros"
+            ]
+          }
+        ]
+      },
+      {
+        text: "Japan",
+        value: [
+          {
+            text: "Elemental",
+            value: [
+              "Aegis",
+              "Atomos",
+              "Carbuncle",
+              "Garuda",
+              "Gungnir",
+              "Kujata",
+              "Ramuh",
+              "Tonberry",
+              "Typhon",
+              "Unicorn"
+            ]
+          },
+          {
+            text: "Gaia",
+            value: [
+              "Alexander",
+              "Bahamut",
+              "Durandal",
+              "Fenrir",
+              "Ifrit",
+              "Ridill",
+              "Tiamat",
+              "Ultima",
+              "Valefor",
+              "Yojimbo",
+              "Zeromus"
+            ]
+          },
+          {
+            text: "Mana",
+            value: [
+              "Anima",
+              "Asura",
+              "Belias",
+              "Chocobo",
+              "Hades",
+              "Ixion",
+              "Mandragora",
+              "Masamune",
+              "Pandaemonium",
+              "Shinryu",
+              "Titan"
+            ]
+          }
+        ]
+      },
+      {
+        text: "Europe",
+        value: [
+          {
+            text: "Chaos",
+            value: [
+              "Cerberus",
+              "Louisoix",
+              "Moogle",
+              "Omega",
+              "Ragnarok",
+              "Spriggan"
+            ]
+          },
+          {
+            text: "Light",
+            value: [
+              "Lich", 
+              "Odin", 
+              "Phoenix", 
+              "Shiva", 
+              "Twintania", 
+              "Zodiark"
+            ]
+          }
+        ]
+      }
+    ];
 		return {
+			regions: regions,
 			dialog: false,
 			isRecurring: false,
+			worldDisabled: false,
 			event: {
 				isTemporary: true,
 				title: "",
@@ -204,20 +341,15 @@ export default {
 					},
 				],
 				location: {
-					datacenter: {
-						items: ["Crystal"],
-						value: "Crystal"
-					},
-					world:  {
-						items: ["Balmung", "Brynhildr", "Coeurl", "Diabolos", "Goblin", "Malboro", "Mateus", "Zalera"],
-						value: "",
-					},
+					region: "North America",
+					datacenter: "Crystal",
+					world: "Balmung",
 					housing:  {
 						items: ["Mist", "Lavender Beds", "Goblet", "Shirogane"],
 						value: "",
 					},
 					ward: {
-						items: Array.from({length:40},(v,k)=>k+1),
+						items: Array.from({length:60},(v,k)=>k+1),
 						value: "",
 					},
 					plot: {
@@ -267,10 +399,26 @@ export default {
 			let event = this.event;
 
 			if (this.isRecurring && event.daysOfWeek.filter(d => d.isChecked).length == 0) return false;
-			let isReady = event.title != "" && event.org != "" && event.description != "" && event.startTime != "" && event.endTime != "" && event.startDate != "" && event.location.datacenter.value != "" && event.location.world.value != "" && event.location.housing.value != "" && event.location.plot.value != "" && event.location.ward.value != "";
+			let isReady = event.title != "" && event.org != "" && event.description != "" && event.startTime != "" && event.endTime != "" && event.startDate != "" && !Array.isArray(event.location.world) && event.location.world != "" && event.location.housing.value != "" && event.location.plot.value != "" && event.location.ward.value != "";
 			// eslint-disable-next-line no-console
 			// console.log(isReady);
 			return isReady;
+		},
+		getRegions() {
+			let regions = [];
+			for (let r of this.regions) regions.push(r.text);
+			return regions;
+		},
+		getDatacenters() {
+			let datacenters = [];
+			for (let d of this.regions.find(r => r.text == this.event.location.region).value) datacenters.push(d.text);
+			return datacenters;
+		},
+		getWorlds() {
+			let worlds = [];
+			if (!this.regions.find(r => r.text == this.event.location.region).value.find(d => d.text == this.event.location.datacenter)) return [];
+			for (let w of this.regions.find(r => r.text == this.event.location.region).value.find(d => d.text == this.event.location.datacenter).value) worlds.push(w);
+			return worlds;
 		}
 	},
 	methods: {
@@ -309,17 +457,53 @@ export default {
 			}
 
 			event.location = {};
-					// eslint-disable-next-line no-console
-					// console.log(this.event.location);
-			for (let key in this.event.location) {
-				event.location[key] = this.event.location[key].value;
-			}
+			event.location.datacenter = this.event.location.datacenter;
+			event.location.world = this.event.location.world;
+			event.location.housing = this.event.location.housing.value;
+			event.location.ward = this.event.location.ward.value;
+			event.location.plot = this.event.location.plot.value;
+			// 		// eslint-disable-next-line no-console
+			// 		console.log(this.event.location);
+			// for (let key in this.event.location) {
+			// 	event.location[key] = this.event.location[key].value;
+			// }
 
 			// eslint-disable-next-line no-console
-			// console.log(event);
+			console.log(event);
 
 			dbActions.pushEvent(event);
-		}
+		},
+    getRegion(region) {
+			// eslint-disable-next-line no-console
+			console.log(region);
+			// eslint-disable-next-line no-console
+			for (let r of this.regions) console.log(r);
+      return this.regions.find(r => r == region.value);
+    },
+    getRegionFromDatacenterName(datacenter) {
+      for (let r of this.regions) {
+        for (let d of r.value) {
+          if (d.text == datacenter) return r;
+        }
+      }
+      return null;
+    },
+    getDatacenter(datacenter) {
+      for (let r of this.regions) {
+        for (let d of r.value) {
+          if (d.text == datacenter) return d;
+        }
+      }
+      return null;
+    },
+		initialize() {
+			// this.event.location.region = this.getRegionFromDatacenterName(this.datacenter).value;
+
+			// this.event.location.datacenter = this.getDatacenter(this.datacenter).value;
+    }
+  },
+  beforeMount() {
+    this.initialize();
 	}
 }
 </script>
